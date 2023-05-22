@@ -1,8 +1,8 @@
 package com.Project.PicMe.entity;
 
 import com.Project.PicMe.compositeKey.PostPictureId;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +17,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PostPicture {
 
     @EmbeddedId
@@ -28,7 +29,6 @@ public class PostPicture {
             insertable=false,
             updatable=false,
             foreignKey = @ForeignKey(name = "postpicture_fk_post"))
-    @JsonBackReference
     private Post post;
 
     @ManyToOne
@@ -37,6 +37,5 @@ public class PostPicture {
             insertable=false,
             updatable=false,
             foreignKey = @ForeignKey(name = "postpicture_fk_picture"))
-    @JsonBackReference
     private Picture picture;
 }

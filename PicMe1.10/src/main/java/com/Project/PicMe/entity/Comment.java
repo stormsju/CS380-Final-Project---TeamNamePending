@@ -1,7 +1,9 @@
 package com.Project.PicMe.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,6 +21,7 @@ import lombok.*;
 @Entity
 @Builder
 @Table(name = "comment")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Comment {
 
     /**
@@ -52,7 +55,6 @@ public class Comment {
             nullable = false,
             foreignKey = @ForeignKey(name = "comment_fk_post")
     )
-    @JsonBackReference
     private Post post;
 
     /**
@@ -65,6 +67,5 @@ public class Comment {
             nullable = false,
             foreignKey = @ForeignKey(name = "comment_fk_person")
     )
-    @JsonBackReference
     private Person person;
 }

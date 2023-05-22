@@ -2,7 +2,9 @@ package com.Project.PicMe.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +23,7 @@ import java.util.List;
 @Entity
 @Builder
 @Table(name = "picture")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Picture {
 
     /**
@@ -63,7 +66,6 @@ public class Picture {
             nullable = false,
             foreignKey = @ForeignKey(name = "picture_fk_person")
     )
-    @JsonBackReference
     private Person person;
 
     /**
@@ -71,7 +73,6 @@ public class Picture {
      * picture and picture post entity
      */
     @OneToMany(mappedBy = "picture", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<PostPicture> postPictures;
 
 }

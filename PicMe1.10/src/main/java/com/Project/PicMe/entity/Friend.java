@@ -2,6 +2,8 @@ package com.Project.PicMe.entity;
 
 import com.Project.PicMe.compositeKey.FriendId;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +22,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Friend {
 
     /**
@@ -38,7 +41,6 @@ public class Friend {
             insertable=false,
             updatable=false,
             foreignKey = @ForeignKey(name = "friend1_fk_person"))
-    @JsonBackReference
     Person person1;
 
     /**
@@ -50,6 +52,5 @@ public class Friend {
             insertable=false,
             updatable=false,
             foreignKey = @ForeignKey(name = "friend2_fk_person"))
-    @JsonBackReference
     Person person2;
 }

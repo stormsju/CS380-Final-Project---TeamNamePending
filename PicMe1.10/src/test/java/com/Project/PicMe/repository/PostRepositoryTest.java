@@ -2,6 +2,7 @@ package com.Project.PicMe.repository;
 
 import com.Project.PicMe.entity.Person;
 import com.Project.PicMe.entity.Post;
+import com.Project.PicMe.service.PostService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,7 @@ class PostRepositoryTest {
     @Autowired
     private PostRepository postRepository;
 
+
     @Autowired
     private PersonRepository personRepository;
 
@@ -25,7 +27,7 @@ class PostRepositoryTest {
         if(prsn0 == null) return;
 
         Post p0 = Post.builder()
-                .text("I thought about writing a post today, then I did it.")
+                .text("Here is a post for the day sorry no image.")
                 .person(prsn0)
                 .build();
 

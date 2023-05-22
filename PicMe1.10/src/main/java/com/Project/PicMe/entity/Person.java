@@ -1,7 +1,8 @@
 package com.Project.PicMe.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,7 @@ import java.util.List ;
             @UniqueConstraint(name = "person_email_unique", columnNames = "email"),
                 @UniqueConstraint(name = "person_username_unique", columnNames = "username")
         })
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Person {
 
     /**
@@ -97,7 +99,6 @@ public class Person {
      * have foreign keys pointing to specific Person obj primary key will be deleted as well.
      */
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Post> post;
 
     /**
@@ -106,7 +107,6 @@ public class Person {
      * have foreign keys pointing to specific Person obj primary key will be deleted as well.
      */
     @OneToMany(mappedBy = "person1", cascade = CascadeType.ALL)
-    @JsonManagedReference
     List<Friend> friendsA;
 
     /**
@@ -115,7 +115,6 @@ public class Person {
      * have foreign keys pointing to specific Person obj primary key will be deleted as well.
      */
     @OneToMany(mappedBy = "person2", cascade = CascadeType.ALL)
-    @JsonManagedReference
     List<Friend> friendsB;
 
     /**
@@ -124,7 +123,6 @@ public class Person {
      * have foreign keys pointing to specific Person obj primary key will be deleted as well.
      */
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    @JsonManagedReference
     List<Picture> pictures;
 
     /**
@@ -133,6 +131,5 @@ public class Person {
      * Comment are deleted.
      */
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    @JsonManagedReference
     List<Comment> comments;
 }
