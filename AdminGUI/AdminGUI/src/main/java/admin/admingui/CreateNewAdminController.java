@@ -9,8 +9,12 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class which runs a GUI interface allowing a user to create an admin account for the
+ * PicMe database.
+ */
 public class CreateNewAdminController {
-
+    //Private variable fields
     @FXML
     private Button cancelButton;
 
@@ -29,12 +33,22 @@ public class CreateNewAdminController {
     @FXML
     private TextField userNameField;
 
+    /**
+     * Method which closes the admin user account creation scene.
+     * @param event onClick Close
+     */
     @FXML
     void closeBox(MouseEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Method which validates the credentials submitted for account creation. Uses regex to validate
+     * password requirements along with verification that the user entered the password they meant to
+     * via confirmation check.
+     * @param event onClick Submit
+     */
     @FXML
     void submitCredentials(MouseEvent event) {
         List<Person> allUsers = new ArrayList<Person>();
