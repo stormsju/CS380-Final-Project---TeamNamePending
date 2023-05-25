@@ -60,7 +60,7 @@ public class CreateNewAdminController {
             allUsers.add(person);
         }
 
-        // 1) verify userName is unique
+        // 1) verify userName is unique and between 10 and 20 characters
         for(Person person : allUsers){
             if(userName.equals(person.getUserName())){
                 //create dialog box
@@ -68,6 +68,18 @@ public class CreateNewAdminController {
                 alert.setTitle("Unable to create username");
                 alert.setContentText("The username you have chosen is already in the database." +
                         "\nPlease select a new username and try again.");
+                Optional<ButtonType> confirmation = alert.showAndWait();
+                //clear the username text field upon OK
+                if(confirmation.get() == ButtonType.OK) userNameField.setText("");
+                return;
+            }
+
+            if(userName.length() < 10 || userName.length() > 20){
+                //create dialog box
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Unable to create username");
+                alert.setContentText("The username you have chosen must be between 10 and 20" +
+                        "characters.");
                 Optional<ButtonType> confirmation = alert.showAndWait();
                 //clear the username text field upon OK
                 if(confirmation.get() == ButtonType.OK) userNameField.setText("");
