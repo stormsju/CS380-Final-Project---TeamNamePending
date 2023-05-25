@@ -128,7 +128,7 @@ public class CreateNewAdminController {
 
         // 3) on full success send success message and stage.close()
         //create new admin user
-        AdminUser user = new AdminUser(userName, pword);
+        AdminUser user = new AdminUser(userName, pWord);
         // ***Output admin user to database***
 
         //create dialog box
