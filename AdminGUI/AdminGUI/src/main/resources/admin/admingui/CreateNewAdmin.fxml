@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<DialogPane prefHeight="341.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.admingui.CreateNewAdminController">
+<DialogPane fx:id="dialogPane" prefHeight="341.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.admingui.CreateNewAdminController">
    <graphic>
       <AnchorPane prefHeight="319.0" prefWidth="380.0">
          <children>

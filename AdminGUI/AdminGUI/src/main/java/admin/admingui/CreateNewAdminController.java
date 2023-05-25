@@ -131,7 +131,8 @@ public class CreateNewAdminController {
             confirmPasswordField.setText("");
 
         }
-        stage.close();
+        this.stage.close();
+        AdminLogin.launch();
     }
 
 }
