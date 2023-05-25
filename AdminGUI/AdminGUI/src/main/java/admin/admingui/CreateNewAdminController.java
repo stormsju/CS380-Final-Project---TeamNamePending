@@ -1,4 +1,2 @@
-package admin.admingui;
-
-public class CreateNewAdminController {
+package admin.admingui;public class CreateNewAdminController {
 }
