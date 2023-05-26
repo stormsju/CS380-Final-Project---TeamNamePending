@@ -12,7 +12,7 @@ public class AdminMainUI extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AdminLogin.class.getResource("AdminMainUI.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Admin Access");
+        stage.setTitle("Admin");
         stage.setScene(scene);
         stage.show();
     }

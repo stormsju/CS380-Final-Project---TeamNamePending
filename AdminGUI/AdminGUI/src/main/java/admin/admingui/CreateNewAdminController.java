@@ -100,7 +100,7 @@ public class CreateNewAdminController {
             //create dialog box
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Unable to create password");
-            alert.setContentText("The password you have selected does not contain a password requirements." +
+            alert.setContentText("The password you have selected does not contain the password requirements." +
                     "Please try again.");
             Optional<ButtonType> confirmation = alert.showAndWait();
             //clear the password text fields upon OK
