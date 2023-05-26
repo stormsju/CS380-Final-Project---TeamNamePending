@@ -20,20 +20,20 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
                   <MenuItem fx:id="menuExportQueryAsFile" mnemonicParsing="false" onMenuValidation="#exportQueryAsFile" text="Export query as File" />
-                  <MenuItem fx:id="menuLogout" mnemonicParsing="false" text="Logout" />
-                  <MenuItem fx:id="menuExit" mnemonicParsing="false" onMenuValidation="#exit" text="Exit" />
+                  <MenuItem fx:id="menuLogout" mnemonicParsing="false" onAction="#logout" text="Logout" />
+                  <MenuItem fx:id="menuExit" mnemonicParsing="false" onAction="#exit" text="Exit" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Query">
                <items>
                   <Menu mnemonicParsing="false" text="Pull User...">
                     <items>
-                        <MenuItem fx:id="menuPullUserDetails" mnemonicParsing="false" onMenuValidation="#submitPullUserDetails" text="Pull User Details (Submit)" />
+                        <MenuItem fx:id="menuPullUserDetails" mnemonicParsing="false" onAction="#submitPullUserDetails" text="Pull User Details (Submit)" />
                         <MenuItem fx:id="menuPullContactIDs" mnemonicParsing="false" onAction="#submitPullContactIDs" text="Pull Contact IDs (Submit)" />
                         <Menu mnemonicParsing="false" text="Pull Post...">
                           <items>
                               <MenuItem fx:id="menuPullPost" mnemonicParsing="false" onAction="#submitPullPost" text="Pull Post (Submit)" />
-                              <MenuItem fx:id="menuPullPostComments" mnemonicParsing="false" onAction="#submitPullPostComments" onMenuValidation="#pullComments" text="Pull Comments (Submit)" />
+                              <MenuItem fx:id="menuPullPostComments" mnemonicParsing="false" onAction="#submitPullPostComments" text="Pull Comments (Submit)" />
                           </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Pull Picture...">

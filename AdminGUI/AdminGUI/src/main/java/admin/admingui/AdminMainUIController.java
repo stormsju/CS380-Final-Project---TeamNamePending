@@ -1,14 +1,19 @@
 package admin.admingui;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.util.*;
+import java.io.*;
 import java.sql.SQLException;
 
 public class AdminMainUIController {
+    //current user log (outputs to logs folder on close/during actions)
+    private List<Log> log = new ArrayList<Log>();
+
     //GUI Objects
     @FXML
     private ToggleGroup actionSelection;
@@ -92,12 +97,17 @@ public class AdminMainUIController {
 
     @FXML
     void exit(MouseEvent event) {
+        Platform.exit();
+        System.exit(0);
+    }
 
+    void logout(MouseEvent event){
+        //show login scene
     }
 
     @FXML
     void exportQueryAsFile(MouseEvent event) {
-
+        //export to queries folder
     }
 
     @FXML
@@ -112,7 +122,7 @@ public class AdminMainUIController {
 
     @FXML
     void submit(MouseEvent event) {
-
+        //submit based on radio selection (this is for btnSubmit only)
     }
 
     @FXML

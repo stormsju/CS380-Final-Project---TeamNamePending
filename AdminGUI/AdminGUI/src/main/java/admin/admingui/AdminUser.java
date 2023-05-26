@@ -3,6 +3,7 @@ package admin.admingui;
 public class AdminUser {
     private String userName, password;
     private int userID, postID, pictureID;
+    private Person p;
 
     AdminUser(String userName, String password){
         this.userName = userName;
@@ -21,6 +22,10 @@ public class AdminUser {
         this.pictureID = n;
     }
 
+    void setPerson(Person person){
+        this.person = new Person(person);
+    }
+
     int getUserID(){
         return this.userID;
     }
@@ -35,5 +40,9 @@ public class AdminUser {
 
     String getUserName(){
         return this.userName;
+    }
+
+    Person getPerson(){
+        return this.person;
     }
 }
