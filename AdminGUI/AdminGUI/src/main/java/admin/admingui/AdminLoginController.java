@@ -1,5 +1,6 @@
 package admin.admingui;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,6 +11,15 @@ import javafx.scene.control.TextField;
 import java.util.Optional;
 
 public class AdminLoginController {
+    protected static AdminUser admin;
+    @FXML
+    private Button btnExit;
+
+    @FXML
+    private Button btnLogin;
+
+    @FXML
+    private Button btnNewUser;
 
     @FXML
     private PasswordField tfPassword;
@@ -19,7 +29,8 @@ public class AdminLoginController {
 
     @FXML
     void exit(ActionEvent event) {
-
+        Platform.exit();
+        System.exit(0);
     }
 
     @FXML
@@ -27,8 +38,9 @@ public class AdminLoginController {
         // *** Query the user based on user ID and store password in checkPassword ***
         String checkPassword = DBQuery.getPassword(tfUserName.getText());
 
-        if(tfPassword.getTExt().equals(checkPassword)) {
-            this.stage.close();
+        if(tfPassword.getText().equals(checkPassword)) {
+            admin = new AdminUser(tfUserName.getText(), tfPassword.getText());
+            Platform.exit();
             AdminMainUI.launchUI();
             return;
         }
@@ -47,9 +59,8 @@ public class AdminLoginController {
 
     @FXML
     void newUser(ActionEvent event) {
-        this.stage.close();
+        Platform.exit();
         CreateNewAdmin.launchUI();
-        return;
     }
 
 }

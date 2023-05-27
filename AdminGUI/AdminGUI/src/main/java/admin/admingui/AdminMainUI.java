@@ -16,7 +16,5 @@ public class AdminMainUI extends Application {
         stage.setScene(scene);
         stage.show();
     }
-    public static void launchUI() {
-        launch();
-    }
+    public static void launchUI() { launch(); }
 }

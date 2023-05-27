@@ -8,8 +8,10 @@ import javafx.stage.Stage;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 /**
+ * @author justin Storms
+ * @version 1.0 - AdminMainUIController.java
+ * @since 5/26/2023
  * Class which runs a GUI interface allowing a user to create an admin account for the
  * PicMe database.
  */
@@ -59,6 +61,8 @@ public class CreateNewAdminController {
             Person person = new Person(e);
             allUsers.add(person);
         }
+
+
 
         // 1) verify userName is unique and between 10 and 20 characters
         for(Person person : allUsers){
