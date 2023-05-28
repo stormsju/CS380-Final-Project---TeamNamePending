@@ -1,5 +1,5 @@
 package admin.admingui;
-import java.time.*;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 /**
@@ -42,7 +42,6 @@ public class Log {
     /**
      * Class base constructor. Holds data to log events captured during admin processes
      * @param userName Admin username accessing data via UI.
-     * @param personID PicMe UserID being accessed.
      */
     Log(String userName){
         this.userName = userName;
