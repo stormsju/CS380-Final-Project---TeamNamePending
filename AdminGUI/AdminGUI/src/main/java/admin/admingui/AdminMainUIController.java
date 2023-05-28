@@ -9,6 +9,8 @@ import javafx.scene.input.MouseEvent;
 import java.util.*;
 import java.io.*;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static admin.admingui.Activity.*;
 
@@ -24,7 +26,10 @@ public class AdminMainUIController {
     private static List<Log> logList = new ArrayList<Log>();
     private static Log log = new Log(admin.getUserName());
     private String logOutputFilePath = //location of log output
-            "/* filepath *.";
+                    "/* filepath *.",
+
+            exportOutputFilePath = //location of export output
+                    "/* filepath */";
 
 
     //private listener objects
@@ -316,7 +321,72 @@ public class AdminMainUIController {
     void submit(MouseEvent event) {
         tfMainOutput.setText("");
         tfSysMessage.setText("");
+
+        //verify that an entry is present in the PicMe UserID field and that it is a valid ID (numerical only)
+        //regex to check for appropriate character type
+        Pattern p1 = Pattern.compile("[^a-zA-Z0-9]]"), p2 = Pattern.compile("[a-zA-Z]]");
+        Matcher m1 = p1.matcher(tfPMUserID.getText()), m2 = p2.matcher(tfPMUserID.getText());
+
+        boolean containsSpecialCharacter = m1.find(), containsLetter = m2.find();
+
+        if(!containsSpecialCharacter || !containsLetter){
+            //create dialog box
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Unable to process PicMe UserID");
+            alert.setContentText("The PicMe UserId you have entered must contain only numbers.");
+            Optional<ButtonType> confirmation = alert.showAndWait();
+            return;
+        }
+
         //submit based on radio selection (this is for btnSubmit only)
+
+        //verify that both PostID and PicID are not being queried at the same time
+        if(!(tfPostID.getText().equals("") || tfPostID.getText() == null) &&
+                !(tfPicID.getText().equals("") || tfPicID.getText() == null)){
+
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING: Too many arguments");
+            alert.setContentText("Too many IDs are being used. Please choose *either*:" +
+                            "\n1) No PostID or PicID to query user details using PicMe UserID only" +
+                            "\n2) PostID to query a post from the PicMe user, or post comments if CommentID is present" +
+                            "\n3) PicID to query a picture from the PicMe user, or picture comments if CommentID is present";
+            tfSysMessage.setText("Process abandoned, too many arguments in fields.");
+            Optional<ButtonType> warning = alert.showAndWait();
+            return;
+        }
+
+        //if there is a postID query
+        if(!(tfPostID.getText().equals("") || tfPostID.getText() == null)){
+            String output;
+            //check if it is a post comment query
+            if(!(tfCommentID.getText().equals("") || tfCommentID.getText() == null)){
+                //return the post comment
+                pullPostComments(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
+                        Integer.parseInt(tfCommentID.getText()));
+            } else {
+                //return the post
+                pullPost(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
+            }
+            return;
+        }
+
+        //if there is a picID query
+        if(!(tfPostID.getText().equals("") || tfPostID.getText() == null)){
+            String output;
+            //check if it is a post comment query
+            if(!(tfCommentID.getText().equals("") || tfCommentID.getText() == null)){
+                //return the post comment
+                pullPictureComments(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
+                        Integer.parseInt(tfCommentID.getText()));
+            } else {
+                //return the post
+                pullPicture(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
+            }
+            return;
+        }
+
+        //otherwise pull PicMe User details
+        pullUserDetails(Integer.parseInt(tfPMUserID.getText()));
     }
 
     /**
