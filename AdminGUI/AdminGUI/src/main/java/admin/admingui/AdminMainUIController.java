@@ -6,6 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import java.sql.Blob;
+import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.io.*;
 import java.sql.SQLException;
@@ -25,11 +29,13 @@ public class AdminMainUIController {
     private static AdminUser admin = AdminLoginController.admin;
     private static List<Log> logList = new ArrayList<Log>();
     private static Log log = new Log(admin.getUserName());
-    private String logOutputFilePath = //location of log output
-                    "/* filepath *.",
-
-            exportOutputFilePath = //location of export output
-                    "/* filepath */";
+    private String root = System.getProperty("user.dir"),
+                    logOutputFilePath = //location of log output
+                            root + "/AdminGUI/AdminGUI/src/main/java/admin/logs",
+                    exportOutputFilePath = //location of export output
+                            root + "/AdminGUI/AdminGUI/src/main/java/admin/exports",
+                    pictureOutputFilePath = //location of export output
+                            root + "/AdminGUI/AdminGUI/src/main/java/admin/pictures";
 
 
     //private listener objects
@@ -146,6 +152,99 @@ public class AdminMainUIController {
         tfMainOutput.setText("");
         tfSysMessage.setText("");
         //export to queries folder
+        //writes picture or text output field to file
+        if(!validatePMUserIDField()){
+            return;
+        }
+
+        //ensure that a post or post comment is being queried for export and there is an output present
+        if((!tfPostID.getText().equals("") || !(tfPostID.getText() == null)) &&
+                (!tfMainOutput.getText().equals("") || !(tfMainOutput.getText() == null))){
+
+            //build list of characters and setup iterator
+            List<CharSequence> tBlock = tfMainOutput.getParagraphs();
+            Iterator itr = tBlock.iterator();
+            //need timestamp for file name uniqueness
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            try{
+                //write to file
+                BufferedWriter write = new BufferedWriter(new FileWriter(new File(tfPMUserID.getText() + "_" +
+                        dtf.format(now) + ".txt")));
+
+                //loop over entire "paragraph"
+                while(itr.hasNext()){
+                    CharSequence c = (CharSequence) itr.next();
+                    write.append(c);
+                    write.newLine();
+                }
+
+                //create log and close
+                logList.add(new Log(log, tfPostID.getText(), tfCommentID.getText(), QRY, tfPMUserID.getText()));
+                write.close();
+            } catch(IOException e){
+                tfSysMessage.setText(e.getMessage());
+            }
+            return;
+        } else { //else: if not found, display message in tfSysMessage
+            tfSysMessage.setText("No query to output, please check your search and try again.");
+            return;
+        }
+
+        if(!tfPicID.getText().equals("") || !(tfPicID.getText() == null)){
+            //pull picture and place in export file
+            try {
+                ResultSet result = Query(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPicID.getText()));
+                Blob clob = result.getBlob(2);
+                byte[] byteArr = clob.getBytes(1,(int)clob.length());
+
+                FileOutputStream fileOut = new FileOutputStream(exportOutputFilePath);
+                fileOut.write(byteArr);
+
+                //create log and close
+                logList.add(new Log(log, tfPicID.getText(), tfCommentID.getText(), QRY, tfPMUserID.getText()));
+                fileOut.close();
+            } catch(SQLException e){
+                tfMainOutput.setText("No query result found.\nSee System Message below.");
+                tfSysMessage.setText(e.getMessage());
+            } catch(IOException e) {
+                tfMainOutput.setText("Error in writing file.\nSee System Message below.");
+                tfSysMessage.setText(e.getMessage());
+            }
+            return;
+        } else { //else: if not found, display message in tfSysMessage
+            tfSysMessage.setText("No query to output, please check your search and try again.");
+            return;
+        }
+
+        //otherwise export user details
+        //ensure main output isn't empty for export
+        if(!tfMainOutput.getText().equals("") || !(tfMainOutput.getText() == null)){
+            //build list of characters and setup iterator
+            List<CharSequence> tBlock = tfMainOutput.getParagraphs();
+            Iterator itr = tBlock.iterator();
+            //need timestamp for file name uniqueness
+            LocalDateTime now = LocalDateTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            try{
+                //write to file
+                BufferedWriter write = new BufferedWriter(new FileWriter(new File(tfPMUserID.getText() + "_" +
+                        dtf.format(now) + ".txt")));
+
+                //loop over entire "paragraph"
+                while(itr.hasNext()){
+                    CharSequence c = (CharSequence) itr.next();
+                    write.append(c);
+                    write.newLine();
+                }
+                //create log and close
+                logList.add(new Log(log, "", tfCommentID.getText(), QRY, tfPMUserID.getText()));
+                write.close();
+            } catch(IOException e){
+                tfSysMessage.setText(e.getMessage());
+            }
+        }
+
     }
 
     /**
@@ -312,15 +411,8 @@ public class AdminMainUIController {
         }
     }
 
-    /**
-     * Listener event which runs a logic check to determine what query request helper method is being executed.
-     * Will exapnd here as it is built.
-     * @param event onClick
-     */
-    @FXML
-    void submit(MouseEvent event) {
-        tfMainOutput.setText("");
-        tfSysMessage.setText("");
+    private boolean validatePMUserIDField(){
+        boolean isValid = false;
 
         //verify that an entry is present in the PicMe UserID field and that it is a valid ID (numerical only)
         //regex to check for appropriate character type
@@ -335,58 +427,124 @@ public class AdminMainUIController {
             alert.setTitle("Unable to process PicMe UserID");
             alert.setContentText("The PicMe UserId you have entered must contain only numbers.");
             Optional<ButtonType> confirmation = alert.showAndWait();
+            isValid = true;
+        }
+
+        return isValid;
+    }
+
+    /**
+     * Listener event which runs a logic check to determine what query request helper method is being executed.
+     * Will exapnd here as it is built.
+     * @param event onClick
+     */
+    @FXML
+    void submit(MouseEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
+
+        //ensure user ID is valid
+        if(!validatePMUserIDField()){
             return;
         }
 
-        //submit based on radio selection (this is for btnSubmit only)
+        //radButton = Query
+        if(radQuery.isSelected()){
+            //submit based on radio selection (this is for btnSubmit only)
+            //verify that both PostID and PicID are not being queried at the same time
+            if(!(tfPostID.getText().equals("") || tfPostID.getText() == null) &&
+                    !(tfPicID.getText().equals("") || tfPicID.getText() == null)){
 
-        //verify that both PostID and PicID are not being queried at the same time
-        if(!(tfPostID.getText().equals("") || tfPostID.getText() == null) &&
-                !(tfPicID.getText().equals("") || tfPicID.getText() == null)){
-
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("WARNING: Too many arguments");
-            alert.setContentText("Too many IDs are being used. Please choose *either*:" +
-                            "\n1) No PostID or PicID to query user details using PicMe UserID only" +
-                            "\n2) PostID to query a post from the PicMe user, or post comments if CommentID is present" +
-                            "\n3) PicID to query a picture from the PicMe user, or picture comments if CommentID is present";
-            tfSysMessage.setText("Process abandoned, too many arguments in fields.");
-            Optional<ButtonType> warning = alert.showAndWait();
-            return;
-        }
-
-        //if there is a postID query
-        if(!(tfPostID.getText().equals("") || tfPostID.getText() == null)){
-            String output;
-            //check if it is a post comment query
-            if(!(tfCommentID.getText().equals("") || tfCommentID.getText() == null)){
-                //return the post comment
-                pullPostComments(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
-                        Integer.parseInt(tfCommentID.getText()));
-            } else {
-                //return the post
-                pullPost(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("WARNING: Too many arguments");
+                alert.setContentText("Too many IDs are being used. Please choose *either*:" +
+                                "\n1) No PostID or PicID to query user details using PicMe UserID only" +
+                                "\n2) PostID to query a post from the PicMe user, or post comments if CommentID is present" +
+                                "\n3) PicID to query a picture from the PicMe user, or picture comments if CommentID is present";
+                tfSysMessage.setText("Process abandoned, too many arguments in fields.");
+                Optional<ButtonType> warning = alert.showAndWait();
+                return;
             }
-            return;
-        }
 
-        //if there is a picID query
-        if(!(tfPostID.getText().equals("") || tfPostID.getText() == null)){
-            String output;
-            //check if it is a post comment query
-            if(!(tfCommentID.getText().equals("") || tfCommentID.getText() == null)){
-                //return the post comment
-                pullPictureComments(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
-                        Integer.parseInt(tfCommentID.getText()));
-            } else {
-                //return the post
-                pullPicture(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
+            //if there is a postID query
+            if(!(tfPostID.getText().equals("") || tfPostID.getText() == null)){
+                //check if it is a post comment query
+                if(!(tfCommentID.getText().equals("") || tfCommentID.getText() == null)){
+                    //return the post comment
+                    pullPostComments(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
+                            Integer.parseInt(tfCommentID.getText()));
+                } else {
+                    //return the post
+                    pullPost(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
+                }
+                return;
             }
-            return;
-        }
 
-        //otherwise pull PicMe User details
-        pullUserDetails(Integer.parseInt(tfPMUserID.getText()));
+            //if there is a picID query
+            if(!(tfPicID.getText().equals("") || tfPicID.getText() == null)){
+                //check if it is a post comment query
+                if(!(tfCommentID.getText().equals("") || tfCommentID.getText() == null)){
+                    //return the post comment
+                    pullPictureComments(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
+                            Integer.parseInt(tfCommentID.getText()));
+                } else {
+                    //return the post
+                    pullPicture(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
+                }
+                return;
+            }
+
+            //otherwise pull PicMe User details
+            pullUserDetails(Integer.parseInt(tfPMUserID.getText()));
+        } else if(radDelete.isSelected()){ //else: Delete selected
+            //verify that both PostID and PicID are not being queried at the same time
+            if(!(tfPostID.getText().equals("") || tfPostID.getText() == null) &&
+                    !(tfPicID.getText().equals("") || tfPicID.getText() == null)){
+
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("WARNING: Too many arguments");
+                alert.setContentText("Too many IDs are being used. Please choose *either*:" +
+                        "\n1) No PostID or PicID to delete account user with PicMe UserID only" +
+                        "\n2) PostID to delete a post from the PicMe user, or post comments if CommentID is present" +
+                        "\n3) PicID to delete a picture from the PicMe user, or picture comments if CommentID is present";
+                tfSysMessage.setText("Process abandoned, too many arguments in fields.");
+                Optional<ButtonType> warning = alert.showAndWait();
+                return;
+            }
+
+            //if there is a postID delete request
+            if(!(tfPostID.getText().equals("") || tfPostID.getText() == null)){
+                //check if it is a post comment query
+                if(!(tfCommentID.getText().equals("") || tfCommentID.getText() == null)){
+                    //return the post comment
+                    deletePostComment(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
+                            Integer.parseInt(tfCommentID.getText()));
+                } else {
+                    //return the post
+                    deletePost(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
+                }
+                return;
+            }
+
+            //if there is a picID delete request
+            if(!(tfPicID.getText().equals("") || tfPicID.getText() == null)){
+                //check if it is a post comment query
+                if(!(tfCommentID.getText().equals("") || tfCommentID.getText() == null)){
+                    //return the post comment
+                    deletePictureComment(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
+                            Integer.parseInt(tfCommentID.getText()));
+                } else {
+                    //return the post
+                    deletePicture(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
+                }
+                return;
+            }
+
+            //otherwise delete account user by PicMe UserID
+            deleteUser(Integer.parseInt(tfPMUserID.getText()));
+        } else if (radContacts.isSelected()) { //else: Contacts selected
+            pullContactIDs(Integer.parseInt(tfPMUserID.getText()));
+        }
     }
 
     /**
@@ -538,10 +696,16 @@ public class AdminMainUIController {
         tfSysMessage.setText("");
         //Query on PersonID + PictureID retrieving post
         try {
-            String str = Query(personID, pictureID); //should return string from DB
-            tfMainOutput.setText(str);
+            ResultSet result = Query(personID, pictureID);
+            Blob clob = result.getBlob(2);
+            byte[] byteArr = clob.getBytes(1,(int)clob.length());
+
+            FileOutputStream fileOut = new FileOutputStream(pictureOutputFilePath);
+            fileOut.write(byteArr);
+
             logList.add(new Log(log, String.valueOf(pictureID), PPost, String.valueOf(personID)));
-        } catch(SQLException e){
+            fileOut.close();
+        } catch(Exception e){
             tfMainOutput.setText("No query result found.\nSee System Message below.");
             tfSysMessage.setText(e.getMessage());
         }

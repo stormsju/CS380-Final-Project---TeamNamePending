@@ -145,7 +145,7 @@ public class CreateNewAdminController {
         Optional<ButtonType> confirmation = alert.showAndWait();
         //clear the password text fields upon OK
         if(confirmation.get() == ButtonType.OK) {
-            usernameField.setText("");
+            userNameField.setText("");
             passwordField.setText("");
             confirmPasswordField.setText("");
 
