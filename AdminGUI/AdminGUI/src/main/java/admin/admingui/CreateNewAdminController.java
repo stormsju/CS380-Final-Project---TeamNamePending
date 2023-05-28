@@ -1,5 +1,6 @@
 package admin.admingui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -16,7 +17,7 @@ import java.util.regex.Pattern;
  * PicMe database.
  */
 public class CreateNewAdminController {
-    //Private variable fields
+    //private action listeners
     @FXML
     private Button cancelButton;
 
@@ -35,6 +36,8 @@ public class CreateNewAdminController {
     @FXML
     private TextField userNameField;
 
+
+    //event handlers
     /**
      * Method which closes the admin user account creation scene.
      * @param event onClick Close
@@ -147,7 +150,7 @@ public class CreateNewAdminController {
             confirmPasswordField.setText("");
 
         }
-        this.stage.close();
+        Platform.exit();
         AdminLogin.launch();
     }
 

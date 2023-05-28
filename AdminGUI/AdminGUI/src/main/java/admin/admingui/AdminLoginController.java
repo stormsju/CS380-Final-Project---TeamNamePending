@@ -9,9 +9,18 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.util.Optional;
-
+/**
+ * @author justin Storms
+ * @version 1.0 - AdminMainUIController.java
+ * @since 5/26/2023
+ * Class which controls the behavior for the PicMe Administrator Login UI.
+ */
 public class AdminLoginController {
+    //class variable
     protected static AdminUser admin;
+
+
+    //action listeners
     @FXML
     private Button btnExit;
 
@@ -27,12 +36,22 @@ public class AdminLoginController {
     @FXML
     private TextField tfUserName;
 
+
+    //event handlers
+    /**
+     * Method to exit application.
+     * @param event onClick
+     */
     @FXML
     void exit(ActionEvent event) {
         Platform.exit();
         System.exit(0);
     }
 
+    /**
+     * Method which handles verification os login credentials and Main UI launch upon success.
+     * @param event onClick
+     */
     @FXML
     void login(ActionEvent event) {
         // *** Query the user based on user ID and store password in checkPassword ***
@@ -57,6 +76,10 @@ public class AdminLoginController {
         }
     }
 
+    /**
+     * Method which handles New User UI launch for Admin account creation.
+     * @param event onClick
+     */
     @FXML
     void newUser(ActionEvent event) {
         Platform.exit();

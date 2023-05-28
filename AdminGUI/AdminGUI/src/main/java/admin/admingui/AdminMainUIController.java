@@ -10,7 +10,7 @@ import java.util.*;
 import java.io.*;
 import java.sql.SQLException;
 
-import static admin.admingui.Activity.DUA;
+import static admin.admingui.Activity.*;
 
 /**
  * @author justin Storms
@@ -23,6 +23,9 @@ public class AdminMainUIController {
     private static AdminUser admin = AdminLoginController.admin;
     private static List<Log> logList = new ArrayList<Log>();
     private static Log log = new Log(admin.getUserName());
+    private String logOutputFilePath = //location of log output
+            "/* filepath *.";
+
 
     //private listener objects
     @FXML
@@ -100,7 +103,6 @@ public class AdminMainUIController {
 
 
     //Listener events
-
     /**
      * Listener event which runs a helper method to clear all inputs/outputs from UI.
      * @param event onClick
@@ -126,6 +128,8 @@ public class AdminMainUIController {
      */
     void logout(MouseEvent event){
         //show login scene
+        Platform.exit();
+        AdminLogin.launch();
     }
 
     /**
@@ -134,6 +138,8 @@ public class AdminMainUIController {
      */
     @FXML
     void exportQueryAsFile(MouseEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         //export to queries folder
     }
 
@@ -143,6 +149,8 @@ public class AdminMainUIController {
      */
     @FXML
     void submitPullContactIDs(ActionEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         pullContactIDs(Integer.parseInt(tfPMUserID.getText()));
     }
 
@@ -152,6 +160,8 @@ public class AdminMainUIController {
      */
     @FXML
     void submitPullUserDetails(ActionEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         pullUserDetails(Integer.parseInt(tfPMUserID.getText()));
     }
 
@@ -201,7 +211,7 @@ public class AdminMainUIController {
 
             /* send delete request to database */
 
-            logList.add(new Log(log, String.valueOf(picID), DUA, String.valueOf(personID)));
+            logList.add(new Log(log, String.valueOf(picID), DPic, String.valueOf(personID)));
             tfSysMessage.setText("Picture deletion request on PMUserID: " + personID + " has been successfully processed.");
         } else {
             tfSysMessage.setText("Picture deletion request on PMUserID: " + personID + " has been cancelled.");
@@ -230,7 +240,7 @@ public class AdminMainUIController {
 
             /* send delete request to database */
 
-            logList.add(new Log(log, String.valueOf(picID), String.valueOf(commentID), DUA, String.valueOf(personID)));
+            logList.add(new Log(log, String.valueOf(picID), String.valueOf(commentID), DPicC, String.valueOf(personID)));
             tfSysMessage.setText("Comment deletion request on PMUserID: " + personID + ", PictureID: " + picID +
                     " has been successfully processed.");
         } else {
@@ -259,7 +269,7 @@ public class AdminMainUIController {
 
             /* send delete request to database */
 
-            logList.add(new Log(log, String.valueOf(postID), DUA, String.valueOf(personID)));
+            logList.add(new Log(log, String.valueOf(postID), DPost, String.valueOf(personID)));
             tfSysMessage.setText("Post deletion request on PMUserID: " + personID + " has been successfully processed.");
         } else {
             tfSysMessage.setText("Post deletion request on PMUserID: " + personID + " has been cancelled.");
@@ -288,7 +298,7 @@ public class AdminMainUIController {
 
             /* send delete request to database */
 
-            logList.add(new Log(log, String.valueOf(postID), String.valueOf(commentID), DUA, String.valueOf(personID)));
+            logList.add(new Log(log, String.valueOf(postID), String.valueOf(commentID), DPostC, String.valueOf(personID)));
             tfSysMessage.setText("Comment deletion request on PMUserID: " + personID + ", PostID: " + postID +
                     " has been successfully processed.");
         } else {
@@ -304,6 +314,8 @@ public class AdminMainUIController {
      */
     @FXML
     void submit(MouseEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         //submit based on radio selection (this is for btnSubmit only)
     }
 
@@ -314,6 +326,8 @@ public class AdminMainUIController {
      */
     @FXML
     void submitPullPicture(ActionEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         pullPicture(Integer.parseInt(tfPostID.getText()), Integer.parseInt(tfPicID.getText()));
     }
 
@@ -324,6 +338,8 @@ public class AdminMainUIController {
      */
     @FXML
     void submitPullPictureComments(ActionEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         pullPictureComments(Integer.parseInt(tfPostID.getText()), Integer.parseInt(tfPicID.getText()),
                 Integer.parseInt(tfCommentID.getText()));
     }
@@ -335,6 +351,8 @@ public class AdminMainUIController {
      */
     @FXML
     void submitPullPost(ActionEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         pullPost(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()));
     }
 
@@ -345,53 +363,143 @@ public class AdminMainUIController {
      */
     @FXML
     void submitPullPostComments(ActionEvent event) {
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         pullPostComments(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPostID.getText()),
                 Integer.parseInt(tfCommentID.getText()));
     }
 
 
     //Controls
-
+    /**
+     * Method which pulls the details of a user by userID.
+     * @param personID Database ID of the PicMe user.
+     */
     private void pullUserDetails(int personID){
-        
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
+        //Query on PersonID + PostID retrieving post
+        try {
+            Person p = Query(personID); //build person profile from query
+
+            tfMainOutput.setText(
+                    "Details for PicMe UserID: " + personID +
+                    "\n\tUser Name: \t...\t... " + p.getUserName() +
+                    "\n\tFirst Name:\t...\t... " + p.getFName() +
+                    "\n\tLast Name: \t...\t... " + p.getLName() +
+                    "\n\tBirth Date:\t...\t... " + p.getBDate() +
+                    "\n\tEmail:     \t...\t... " + p.getEmail()
+            );
+
+            logList.add(new Log(log, PUD, String.valueOf(personID)));
+        } catch(SQLException e){
+            tfMainOutput.setText("No query result found.\nSee System Message below.");
+            tfSysMessage.setText(e.getMessage());
+        }
     }
 
+    /**
+     * Method which pulls the contact IDs of a user by userID.
+     * @param personID Database ID of the PicMe user.
+     */
     private void pullContactIDs(int personID){
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         //Query on PersonID + PostID retrieving post
         try {
-            List<Person> contactList = Query(personID).getContactList(); //or replace wit a method to extract contacts into a list
+            tfMainOutput.setText("Contact ID list from UserID: " + personID);
+            List<Person> contactList = Query(personID).getContactList(); //or replace with a method to extract contacts into a list
             for(Person p : contactList) {
-                tfMainOutput.setText("" + tfMainOutput.getText() + str + "\n");
+                tfMainOutput.setText(tfMainOutput.getText() + "\n\t" + tfMainOutput.getText());
             }
+            logList.add(new Log(log, PCID, String.valueOf(personID)));
         } catch(SQLException e){
             tfMainOutput.setText("No query result found.\nSee System Message below.");
             tfSysMessage.setText(e.getMessage());
         }
     }
 
+    /**
+     * Method which pulls a post of a PicMe user by post ID.
+     * @param personID Database ID of the PicMe user.
+     * @param postID Attribute ID being retrieved.
+     */
     private void pullPost(int personID, int postID){
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
         //Query on PersonID + PostID retrieving post
         try {
-            String str = Query(personID); //should return string from DB
+            String str = Query(personID, postID); //should return string from DB
             tfMainOutput.setText(str);
+            logList.add(new Log(log, String.valueOf(postID), PPost, String.valueOf(personID)));
         } catch(SQLException e){
             tfMainOutput.setText("No query result found.\nSee System Message below.");
             tfSysMessage.setText(e.getMessage());
         }
     }
 
+    /**
+     * Method which pulls a post comment by post and comment ID.
+     * @param personID Database ID of the PicMe user.
+     * @param postID Attribute ID of the post commented on.
+     * @param commentID Attribute ID being retrieved.
+     */
     private void pullPostComments(int personID, int postID, int commentID){
-
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
+        //Query on PersonID + PostID + CommentID retrieving post
+        try {
+            String str = Query(personID, postID, commentID); //should return string from DB
+            tfMainOutput.setText(str);
+            logList.add(new Log(log, String.valueOf(postID), String.valueOf(commentID), PPost, String.valueOf(personID)));
+        } catch(SQLException e){
+            tfMainOutput.setText("No query result found.\nSee System Message below.");
+            tfSysMessage.setText(e.getMessage());
+        }
     }
 
+    /**
+     * Method which pulls a picture from a PicMe user by post ID.
+     * @param personID Database ID of the PicMe user.
+     * @param pictureID Attribute ID being retrieved.
+     */
     private void pullPicture(int personID, int pictureID){
-
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
+        //Query on PersonID + PictureID retrieving post
+        try {
+            String str = Query(personID, pictureID); //should return string from DB
+            tfMainOutput.setText(str);
+            logList.add(new Log(log, String.valueOf(pictureID), PPost, String.valueOf(personID)));
+        } catch(SQLException e){
+            tfMainOutput.setText("No query result found.\nSee System Message below.");
+            tfSysMessage.setText(e.getMessage());
+        }
     }
 
+    /**
+     * Method which pulls a post comment by post and comment ID.
+     * @param personID Database ID of the PicMe user.
+     * @param pictureID Attribute ID of the picture commented on.
+     * @param commentID Attribute ID being retrieved.
+     */
     private void pullPictureComments(int personID, int pictureID, int commentID){
-
+        tfMainOutput.setText("");
+        tfSysMessage.setText("");
+        //Query on PersonID + PictureID + CommentID retrieving post
+        try {
+            String str = Query(personID, pictureID, commentID); //should return string from DB
+            tfMainOutput.setText(str);
+            logList.add(new Log(log, String.valueOf(pictureID), String.valueOf(commentID), PPost, String.valueOf(personID)));
+        } catch(SQLException e){
+            tfMainOutput.setText("No query result found.\nSee System Message below.");
+            tfSysMessage.setText(e.getMessage());
+        }
     }
 
+    /**
+     * Method which clear all UI text fields.
+     */
     void clearAll(){
         tfPMUserID.setText("");
         tfPostID.setText("");
@@ -400,5 +508,4 @@ public class AdminMainUIController {
         tfMainOutput.setText("");
         tfSysMessage.setText("");
     }
-
 }
