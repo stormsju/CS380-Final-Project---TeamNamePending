@@ -16,7 +16,7 @@ import static admin.admingui.Activity.DUA;
  * @author justin Storms
  * @version 1.0 - AdminMainUIController.java
  * @since 5/26/2023
- * Class which controls the behavior for the PicMe Admin Main UI.
+ * Class which controls the behavior for the PicMe Administrator Main UI.
  */
 public class AdminMainUIController {
     //current user/log (outputs to logs folder on close/during actions)
@@ -201,6 +201,7 @@ public class AdminMainUIController {
 
             /* send delete request to database */
 
+            logList.add(new Log(log, String.valueOf(picID), DUA, String.valueOf(personID)));
             tfSysMessage.setText("Picture deletion request on PMUserID: " + personID + " has been successfully processed.");
         } else {
             tfSysMessage.setText("Picture deletion request on PMUserID: " + personID + " has been cancelled.");
@@ -229,6 +230,7 @@ public class AdminMainUIController {
 
             /* send delete request to database */
 
+            logList.add(new Log(log, String.valueOf(picID), String.valueOf(commentID), DUA, String.valueOf(personID)));
             tfSysMessage.setText("Comment deletion request on PMUserID: " + personID + ", PictureID: " + picID +
                     " has been successfully processed.");
         } else {
@@ -237,12 +239,62 @@ public class AdminMainUIController {
         }
     }
 
+    /**
+     * Method which prompts the Admin User to delete a post based on a passed PicMe userID. Creates confirmation
+     * dialogue to reduce the risk of user error.
+     * @param personID PicMeID of an account user.
+     * @param postID PostID of the database tuple to be deleted.
+     */
     private void deletePost(int personID, int postID){
+        //build alert for confirmation
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("WARNING: Delete Post");
+        alert.setContentText("Do you wish to delete this post?" +
+                "\nPicMe User ID: " + personID +
+                "\nPicMe Post ID: " + postID +
+                "\nNotice: This process is final and cannot be undone!");
+        Optional<ButtonType> confirmation = alert.showAndWait();
+        //clear the username text field upon OK
+        if(confirmation.get() == ButtonType.OK) {
 
+            /* send delete request to database */
+
+            logList.add(new Log(log, String.valueOf(postID), DUA, String.valueOf(personID)));
+            tfSysMessage.setText("Post deletion request on PMUserID: " + personID + " has been successfully processed.");
+        } else {
+            tfSysMessage.setText("Post deletion request on PMUserID: " + personID + " has been cancelled.");
+        }
     }
 
+    /**
+     * Method which prompts the Admin User to delete a picture comment based on a passed PicMe userID. Creates
+     * confirmation dialogue to reduce the risk of user error.
+     * @param personID PicMeID of an account user.
+     * @param postID PostID of the database attribute to be set to null.
+     * @param commentID CommentID of the database attribute to be set to null.
+     */
     private void deletePostComment(int personID, int postID, int commentID){
+        //build alert for confirmation
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("WARNING: Delete Post Comment");
+        alert.setContentText("Do you wish to delete this comment?" +
+                "\nPicMe User ID: " + personID +
+                "\nPicMe Post ID: " + postID +
+                "\nPicMe Comment ID: " + commentID +
+                "\nNotice: This process is final and cannot be undone!");
+        Optional<ButtonType> confirmation = alert.showAndWait();
+        //clear the username text field upon OK
+        if(confirmation.get() == ButtonType.OK) {
 
+            /* send delete request to database */
+
+            logList.add(new Log(log, String.valueOf(postID), String.valueOf(commentID), DUA, String.valueOf(personID)));
+            tfSysMessage.setText("Comment deletion request on PMUserID: " + personID + ", PostID: " + postID +
+                    " has been successfully processed.");
+        } else {
+            tfSysMessage.setText("Comment deletion request on PMUserID: " + personID + ", PostID: " + postID +
+                    " has been cancelled.");
+        }
     }
 
     /**
@@ -301,7 +353,7 @@ public class AdminMainUIController {
     //Controls
 
     private void pullUserDetails(int personID){
-
+        
     }
 
     private void pullContactIDs(int personID){
