@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="424.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.admingui.AdminMainUIController">
+   <children>
+      <TextField fx:id="tfPMUserID" layoutX="115.0" layoutY="100.0" prefHeight="25.0" prefWidth="172.0" />
+      <MenuBar prefHeight="25.0" prefWidth="862.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="menuExportQueryAsFile" mnemonicParsing="false" onMenuValidation="#exportQueryAsFile" text="Export query as File" />
+                  <MenuItem fx:id="menuLogout" mnemonicParsing="false" text="Logout" />
+                  <MenuItem fx:id="menuExit" mnemonicParsing="false" onMenuValidation="#exit" text="Exit" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Query">
+               <items>
+                  <Menu mnemonicParsing="false" text="Pull User...">
+                    <items>
+                        <MenuItem fx:id="menuPullUserDetails" mnemonicParsing="false" onMenuValidation="#submitPullUserDetails" text="Pull User Details (Submit)" />
+                        <MenuItem fx:id="menuPullContactIDs" mnemonicParsing="false" onAction="#submitPullContactIDs" text="Pull Contact IDs (Submit)" />
+                        <Menu mnemonicParsing="false" text="Pull Post...">
+                          <items>
+                              <MenuItem fx:id="menuPullPost" mnemonicParsing="false" onAction="#submitPullPost" text="Pull Post (Submit)" />
+                              <MenuItem fx:id="menuPullPostComments" mnemonicParsing="false" onAction="#submitPullPostComments" onMenuValidation="#pullComments" text="Pull Comments (Submit)" />
+                          </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Pull Picture...">
+                          <items>
+                            <MenuItem fx:id="menuPullPicture" mnemonicParsing="false" onAction="#submitPullPicture" text="Pull Picture (Submit)" />
+                              <MenuItem fx:id="menuPullPictureComments" mnemonicParsing="false" onAction="#submitPullPictureComments" onMenuValidation="#pullComments" text="Pull Comments (Submit)" />
+                          </items>
+                        </Menu>
+                    </items>
+                  </Menu>
+                  <MenuItem fx:id="menuClearAll" mnemonicParsing="false" onMenuValidation="#clearAllFields" text="Clear All Fields" />
+               </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label layoutX="23.0" layoutY="104.0" text="PicMe UserID*" />
+      <RadioButton fx:id="radQuery" layoutX="29.0" layoutY="249.0" mnemonicParsing="false" selected="true" text="Query">
+         <toggleGroup>
+            <ToggleGroup fx:id="actionSelection" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="231.0" layoutY="249.0" mnemonicParsing="false" text="Delete" toggleGroup="$actionSelection" />
+      <TextField fx:id="tfPostID" layoutX="115.0" layoutY="138.0" prefHeight="25.0" prefWidth="172.0" />
+      <TextField fx:id="tfPicID" layoutX="115.0" layoutY="175.0" prefHeight="25.0" prefWidth="172.0" />
+      <Label layoutX="23.0" layoutY="142.0" prefHeight="17.0" prefWidth="76.0" text="PostID" />
+      <Label layoutX="23.0" layoutY="179.0" prefHeight="17.0" prefWidth="76.0" text="PicID" />
+      <Label layoutX="20.0" layoutY="54.0" text="Enter User information to perform operations on:" />
+      <Button fx:id="btnSubmit" layoutX="20.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="17.0" prefWidth="54.0" text="Submit" />
+      <Button fx:id="btnClear" layoutX="88.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#clearAllFields" prefHeight="25.0" prefWidth="54.0" text="Clear" />
+      <Button fx:id="btnExit" layoutX="158.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#exit" prefHeight="25.0" prefWidth="54.0" text="Exit" />
+      <Label layoutX="20.0" layoutY="276.0" text="Note: (*) is a required field." />
+      <RadioButton fx:id="radContacts" layoutX="114.0" layoutY="249.0" mnemonicParsing="false" text="List Contacts" toggleGroup="$actionSelection" />
+      <Label layoutX="380.0" layoutY="305.0" text="Output Filename:" />
+      <TextField fx:id="tfOutputFilename" layoutX="480.0" layoutY="301.0" prefHeight="25.0" prefWidth="252.0" />
+      <Button layoutX="747.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#exportQueryAsFile" text="Output to File" />
+      <Label layoutX="23.0" layoutY="214.0" prefHeight="17.0" prefWidth="76.0" text="CommentID" />
+      <TextField fx:id="tfCommentID" layoutX="115.0" layoutY="210.0" prefHeight="25.0" prefWidth="172.0" />
+      <TextArea fx:id="tfMainOutput" disable="true" layoutX="309.0" layoutY="51.0" prefHeight="234.0" prefWidth="529.0" promptText="Query results..." />
+      <TextArea fx:id="tfSysMessage" disable="true" layoutX="17.0" layoutY="337.0" prefHeight="71.0" prefWidth="825.0" promptText="System message..." />
+      <ImageView fx:id="selectionDecal" fitHeight="47.0" fitWidth="21.0" layoutX="73.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../GUI%20Decal%20Assets/AdminGUI%20Option%20Decal.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
