@@ -39,11 +39,11 @@ public class AdminMainUIController {
     private static Log log = new Log(admin.getUserName());
     private String root = System.getProperty("user.dir"),
                     logOutputFilePath = //location of log output
-                            root + "/AdminGUI/AdminGUI/src/main/java/admin/logs",
+                            root + "/AdminGUI/AdminGUI/src/main/java/admin/logs/",
                     exportOutputFilePath = //location of export output
-                            root + "/AdminGUI/AdminGUI/src/main/java/admin/exports",
+                            root + "/AdminGUI/AdminGUI/src/main/java/admin/exports/",
                     pictureOutputFilePath = //location of export output
-                            root + "/AdminGUI/AdminGUI/src/main/java/admin/pictures";
+                            root + "/AdminGUI/AdminGUI/src/main/java/admin/pictures/";
 
 
     //private listener objects
@@ -177,8 +177,8 @@ public class AdminMainUIController {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             try{
                 //write to file
-                BufferedWriter write = new BufferedWriter(new FileWriter(new File(tfPMUserID.getText() + "_" +
-                        dtf.format(now) + ".txt")));
+                BufferedWriter write = new BufferedWriter(new FileWriter(new File(exportOutputFilePath +
+                        tfOutputFilename.getText() + ".txt")));
 
                 //loop over entire "paragraph"
                 while(itr.hasNext()){
@@ -205,7 +205,8 @@ public class AdminMainUIController {
                 Blob clob = result.getBlob(2);
                 byte[] byteArr = clob.getBytes(1,(int)clob.length());
 
-                FileOutputStream fileOut = new FileOutputStream(exportOutputFilePath);
+                FileOutputStream fileOut = new FileOutputStream(pictureOutputFilePath + tfOutputFilename.getText()
+                        + ".png");
                 fileOut.write(byteArr);
 
                 //create log and close
@@ -231,8 +232,8 @@ public class AdminMainUIController {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
             try{
                 //write to file
-                BufferedWriter write = new BufferedWriter(new FileWriter(new File(tfPMUserID.getText() + "_" +
-                        dtf.format(now) + ".txt")));
+                BufferedWriter write = new BufferedWriter(new FileWriter(new File(exportOutputFilePath +
+                        tfOutputFilename.getText() + ".txt" + ".txt")));
 
                 //loop over entire "paragraph"
                 while(itr.hasNext()){
@@ -611,15 +612,15 @@ public class AdminMainUIController {
         tfSysMessage.setText("");
         //Query on PersonID + PostID retrieving post
         try {
-            Person p = (Person) PersonHttp.getPersonWithId(personID); //build person profile from query
+            person = (Person) PersonHttp.getPersonWithId(personID); //build person profile from query
 
             tfMainOutput.setText(
                     "Details for PicMe UserID: " + personID +
-                    "\n\tUser Name: \t...\t... " + p.getUsername() +
-                    "\n\tFirst Name:\t...\t... " + p.getFname() +
-                    "\n\tLast Name: \t...\t... " + p.getLname() +
-                    "\n\tBirth Date:\t...\t... " + p.getDate() +
-                    "\n\tEmail:     \t...\t... " + p.getEmail()
+                    "\n\tUser Name: \t...\t... " + person.getUsername() +
+                    "\n\tFirst Name:\t...\t... " + person.getFname() +
+                    "\n\tLast Name: \t...\t... " + person.getLname() +
+                    "\n\tBirth Date:\t...\t... " + person.getDate() +
+                    "\n\tEmail:     \t...\t... " + person.getEmail()
             );
 
             logList.add(new Log(log, PUD, String.valueOf(personID)));
