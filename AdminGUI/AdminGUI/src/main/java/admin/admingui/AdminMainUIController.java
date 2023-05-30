@@ -463,7 +463,7 @@ public class AdminMainUIController {
                 alert.setContentText("Too many IDs are being used. Please choose *either*:" +
                                 "\n1) No PostID or PicID to query user details using PicMe UserID only" +
                                 "\n2) PostID to query a post from the PicMe user, or post comments if CommentID is present" +
-                                "\n3) PicID to query a picture from the PicMe user, or picture comments if CommentID is present";
+                                "\n3) PicID to query a picture from the PicMe user, or picture comments if CommentID is present");
                 tfSysMessage.setText("Process abandoned, too many arguments in fields.");
                 Optional<ButtonType> warning = alert.showAndWait();
                 return;
@@ -509,7 +509,7 @@ public class AdminMainUIController {
                 alert.setContentText("Too many IDs are being used. Please choose *either*:" +
                         "\n1) No PostID or PicID to delete account user with PicMe UserID only" +
                         "\n2) PostID to delete a post from the PicMe user, or post comments if CommentID is present" +
-                        "\n3) PicID to delete a picture from the PicMe user, or picture comments if CommentID is present";
+                        "\n3) PicID to delete a picture from the PicMe user, or picture comments if CommentID is present");
                 tfSysMessage.setText("Process abandoned, too many arguments in fields.");
                 Optional<ButtonType> warning = alert.showAndWait();
                 return;
@@ -611,7 +611,7 @@ public class AdminMainUIController {
         tfSysMessage.setText("");
         //Query on PersonID + PostID retrieving post
         try {
-            Person p = PersonHttp.getPersonWithId(personID); //build person profile from query
+            Person p = (Person) PersonHttp.getPersonWithId(personID); //build person profile from query
 
             tfMainOutput.setText(
                     "Details for PicMe UserID: " + personID +

@@ -11,7 +11,7 @@ import admin.entity.Person;
 public class AdminUser {
     //private class variables
     private String userName, password, userID, postID, pictureID;
-    private Person p;
+    private Person person;
 
     /**
      * Class constructor which builds an object to hold user Admin credentials for AdminUI interactions.
@@ -52,7 +52,7 @@ public class AdminUser {
      * @param Person Object returned form query.
      */
     void setPerson(Person person){
-        this.person = new Person(person);
+        this.person = new Person();
     }
 
     /**
