@@ -1,4 +1,7 @@
 package admin.admingui;
+
+import admin.entity.Person;
+
 /**
  * @author justin Storms
  * @version 1.0 - Log.java

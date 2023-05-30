@@ -1,18 +1,24 @@
 package admin.admingui;
 
+import admin.entity.*;
+import admin.http.*;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import java.io.*;
 import java.sql.Blob;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.io.*;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +33,8 @@ import static admin.admingui.Activity.*;
 public class AdminMainUIController {
     //current user/log (outputs to logs folder on close/during actions)
     private static AdminUser admin = AdminLoginController.admin;
+    private static Person person;
+    private static List<Friend> fList = new ArrayList<Friend>();
     private static List<Log> logList = new ArrayList<Log>();
     private static Log log = new Log(admin.getUserName());
     private String root = System.getProperty("user.dir"),
@@ -178,23 +186,22 @@ public class AdminMainUIController {
                     write.append(c);
                     write.newLine();
                 }
-
                 //create log and close
                 logList.add(new Log(log, tfPostID.getText(), tfCommentID.getText(), QRY, tfPMUserID.getText()));
                 write.close();
+                return;
             } catch(IOException e){
                 tfSysMessage.setText(e.getMessage());
             }
             return;
         } else { //else: if not found, display message in tfSysMessage
             tfSysMessage.setText("No query to output, please check your search and try again.");
-            return;
         }
 
         if(!tfPicID.getText().equals("") || !(tfPicID.getText() == null)){
             //pull picture and place in export file
             try {
-                ResultSet result = Query(Integer.parseInt(tfPMUserID.getText()), Integer.parseInt(tfPicID.getText()));
+                ResultSet result = (ResultSet) PictureHttp.getPictureWithId(Integer.parseInt(tfPicID.getText()));
                 Blob clob = result.getBlob(2);
                 byte[] byteArr = clob.getBytes(1,(int)clob.length());
 
@@ -204,17 +211,13 @@ public class AdminMainUIController {
                 //create log and close
                 logList.add(new Log(log, tfPicID.getText(), tfCommentID.getText(), QRY, tfPMUserID.getText()));
                 fileOut.close();
-            } catch(SQLException e){
+                return;
+            } catch(Exception e){
                 tfMainOutput.setText("No query result found.\nSee System Message below.");
                 tfSysMessage.setText(e.getMessage());
-            } catch(IOException e) {
-                tfMainOutput.setText("Error in writing file.\nSee System Message below.");
-                tfSysMessage.setText(e.getMessage());
             }
-            return;
         } else { //else: if not found, display message in tfSysMessage
             tfSysMessage.setText("No query to output, please check your search and try again.");
-            return;
         }
 
         //otherwise export user details
@@ -600,7 +603,7 @@ public class AdminMainUIController {
 
     //Controls
     /**
-     * Method which pulls the details of a user by userID.
+     * Method which pulls the details of a user by userID using query from http.
      * @param personID Database ID of the PicMe user.
      */
     private void pullUserDetails(int personID){
@@ -608,19 +611,19 @@ public class AdminMainUIController {
         tfSysMessage.setText("");
         //Query on PersonID + PostID retrieving post
         try {
-            Person p = Query(personID); //build person profile from query
+            Person p = PersonHttp.getPersonWithId(personID); //build person profile from query
 
             tfMainOutput.setText(
                     "Details for PicMe UserID: " + personID +
-                    "\n\tUser Name: \t...\t... " + p.getUserName() +
-                    "\n\tFirst Name:\t...\t... " + p.getFName() +
-                    "\n\tLast Name: \t...\t... " + p.getLName() +
-                    "\n\tBirth Date:\t...\t... " + p.getBDate() +
+                    "\n\tUser Name: \t...\t... " + p.getUsername() +
+                    "\n\tFirst Name:\t...\t... " + p.getFname() +
+                    "\n\tLast Name: \t...\t... " + p.getLname() +
+                    "\n\tBirth Date:\t...\t... " + p.getDate() +
                     "\n\tEmail:     \t...\t... " + p.getEmail()
             );
 
             logList.add(new Log(log, PUD, String.valueOf(personID)));
-        } catch(SQLException e){
+        } catch(Exception e){
             tfMainOutput.setText("No query result found.\nSee System Message below.");
             tfSysMessage.setText(e.getMessage());
         }
@@ -636,12 +639,12 @@ public class AdminMainUIController {
         //Query on PersonID + PostID retrieving post
         try {
             tfMainOutput.setText("Contact ID list from UserID: " + personID);
-            List<Person> contactList = Query(personID).getContactList(); //or replace with a method to extract contacts into a list
-            for(Person p : contactList) {
-                tfMainOutput.setText(tfMainOutput.getText() + "\n\t" + tfMainOutput.getText());
+            fList = FriendHttp.getAllContactIDs(); //or replace with a method to extract contacts into a list
+            for(Friend f : fList) {
+                tfMainOutput.setText(tfMainOutput.getText() + "\n\t" + f.getId().getFriendToId());
             }
             logList.add(new Log(log, PCID, String.valueOf(personID)));
-        } catch(SQLException e){
+        } catch(Exception e){
             tfMainOutput.setText("No query result found.\nSee System Message below.");
             tfSysMessage.setText(e.getMessage());
         }
@@ -657,10 +660,10 @@ public class AdminMainUIController {
         tfSysMessage.setText("");
         //Query on PersonID + PostID retrieving post
         try {
-            String str = Query(personID, postID); //should return string from DB
-            tfMainOutput.setText(str);
+            Post post = PostHttp.getPostWithId(postID); //should return string from DB
+            tfMainOutput.setText(((Post) post).getText());
             logList.add(new Log(log, String.valueOf(postID), PPost, String.valueOf(personID)));
-        } catch(SQLException e){
+        } catch(Exception e){
             tfMainOutput.setText("No query result found.\nSee System Message below.");
             tfSysMessage.setText(e.getMessage());
         }
@@ -677,10 +680,10 @@ public class AdminMainUIController {
         tfSysMessage.setText("");
         //Query on PersonID + PostID + CommentID retrieving post
         try {
-            String str = Query(personID, postID, commentID); //should return string from DB
-            tfMainOutput.setText(str);
+            Comment c = CommentHttp.getCommentById(commentID); //should return string from DB
+            tfMainOutput.setText(c.getText());
             logList.add(new Log(log, String.valueOf(postID), String.valueOf(commentID), PPost, String.valueOf(personID)));
-        } catch(SQLException e){
+        } catch(Exception e){
             tfMainOutput.setText("No query result found.\nSee System Message below.");
             tfSysMessage.setText(e.getMessage());
         }
@@ -696,7 +699,7 @@ public class AdminMainUIController {
         tfSysMessage.setText("");
         //Query on PersonID + PictureID retrieving post
         try {
-            ResultSet result = Query(personID, pictureID);
+            ResultSet result = (ResultSet) PictureHttp.getPictureWithId(pictureID);
             Blob clob = result.getBlob(2);
             byte[] byteArr = clob.getBytes(1,(int)clob.length());
 
@@ -722,10 +725,13 @@ public class AdminMainUIController {
         tfSysMessage.setText("");
         //Query on PersonID + PictureID + CommentID retrieving post
         try {
-            String str = Query(personID, pictureID, commentID); //should return string from DB
-            tfMainOutput.setText(str);
+            PostPicture postPicture = PostPictureHttp.getPostPictureWithId(commentID);
+            Post post = PostHttp.getPostWithId(postPicture.getPostID());
+            Comment c = CommentHttp.getCommentById(post.getId());
+
+            tfMainOutput.setText(c.getText());
             logList.add(new Log(log, String.valueOf(pictureID), String.valueOf(commentID), PPost, String.valueOf(personID)));
-        } catch(SQLException e){
+        } catch(Exception e){
             tfMainOutput.setText("No query result found.\nSee System Message below.");
             tfSysMessage.setText(e.getMessage());
         }
