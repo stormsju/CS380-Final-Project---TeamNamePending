@@ -1,6 +1,5 @@
 package com.example.gui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class ProfileController {
