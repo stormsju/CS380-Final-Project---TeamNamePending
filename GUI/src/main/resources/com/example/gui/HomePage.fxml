@@ -2,11 +2,54 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gui.HomePage">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1280.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gui.HomeController">
    <children>
-      <Button layoutX="274.0" layoutY="267.0" mnemonicParsing="false" text="Button" />
-      <Label layoutX="268.0" layoutY="122.0" text="Hello World" />
+      <Pane layoutY="120.0" prefHeight="1040.0" prefWidth="720.0">
+         <children>
+            <Pane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1020.0" prefWidth="700.0" style="-fx-background-radius: 20; -fx-background-color: #cccccc;" />
+            <Pane layoutY="-120.0" prefHeight="120.0" prefWidth="720.0">
+               <children>
+                  <Pane layoutX="160.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 50;">
+                     <children>
+                        <Text fill="WHITE" layoutX="131.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PicMe">
+                           <font>
+                              <Font name="Segoe UI Bold" size="48.0" />
+                           </font>
+                        </Text>
+                     </children></Pane>
+                  <Button layoutX="14.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #cccccc; -fx-background-radius: 40;" text="Search" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="626.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #cccccc; -fx-background-radius: 40;" text="Settings" textFill="WHITE">
+                     <font>
+                        <Font name="Segoe UI Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutY="1160.0" prefHeight="120.0" prefWidth="720.0">
+         <children>
+            <Button layoutX="250.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#photoNavButtonPressed" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 50;" text="PHOTOS" textFill="#2b87ff">
+               <font>
+                  <Font name="Segoe UI Bold" size="36.0" />
+               </font>
+            </Button>
+            <Button layoutX="14.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#homeNavButtonPressed" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 50;" text="HOME" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="36.0" />
+               </font>
+            </Button>
+            <Button layoutX="486.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#profileNavButtonPressed" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #ffffff; -fx-background-radius: 50;" text="PROFILE" textFill="#2b87ff">
+               <font>
+                  <Font name="Segoe UI Bold" size="36.0" />
+               </font>
+            </Button>
+         </children></Pane>
    </children>
 </AnchorPane>
