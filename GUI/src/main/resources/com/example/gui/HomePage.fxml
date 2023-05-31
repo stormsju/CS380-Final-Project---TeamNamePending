@@ -20,16 +20,6 @@
                   </Text>
                </children>
             </Pane>
-            <Button layoutX="14.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#searchButtonPressed" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #cccccc; -fx-background-radius: 40;" text="Search" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Bold" size="12.0" />
-               </font>
-            </Button>
-             <Button layoutX="626.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#settingsButtonPressed" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #cccccc; -fx-background-radius: 40;" text="Settings" textFill="WHITE">
-               <font>
-                  <Font name="Segoe UI Bold" size="12.0" />
-               </font>
-            </Button>
          </children>
       </Pane>
       <Pane layoutY="120.0" prefHeight="1040.0" prefWidth="720.0">
