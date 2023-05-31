@@ -18,4 +18,29 @@ public class HomeController {
     protected void profileNavButtonPressed() {
         ViewManager.switchTo(Views.PROFILE);
     }
+
+    @FXML
+    protected void searchButtonPressed() {
+        ViewManager.switchTo(Views.SEARCH);
+    }
+
+    @FXML
+    protected void settingsButtonPressed() {
+        ViewManager.switchTo(Views.SETTINGS);
+    }
+
+    @FXML
+    protected void usernameLinkClicked() {
+
+    }
+
+    @FXML
+    protected void likesLinkClicked() {
+
+    }
+
+    @FXML
+    protected void commentsLinkClicked() {
+
+    }
 }
