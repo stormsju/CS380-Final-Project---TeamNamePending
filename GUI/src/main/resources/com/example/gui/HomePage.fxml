@@ -9,18 +9,71 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1280.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gui.HomeController">
    <children>
+      <Pane prefHeight="120.0" prefWidth="720.0">
+         <children>
+            <Pane layoutX="160.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 50;">
+               <children>
+                  <Text fill="WHITE" layoutX="131.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PicMe">
+                     <font>
+                        <Font name="Segoe UI Bold" size="48.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Button layoutX="14.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#searchButtonPressed" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #cccccc; -fx-background-radius: 40;" text="Search" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Button>
+             <Button layoutX="626.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#settingsButtonPressed" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #cccccc; -fx-background-radius: 40;" text="Settings" textFill="WHITE">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
       <Pane layoutY="120.0" prefHeight="1040.0" prefWidth="720.0">
          <children>
-            <Pane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1020.0" prefWidth="700.0" style="-fx-background-radius: 20; -fx-background-color: #cccccc;">
+            <FlowPane alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="1020.0" prefWidth="700.0" style="-fx-background-color: #cccccc; -fx-background-radius: 20;">
                <children>
-                  <ImageView fitHeight="700.0" fitWidth="700.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="700.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2b87ff" height="20.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="700.0" />
+                        <FlowPane alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 20;">
+                           <children>
+                              <Hyperlink text="Username" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="4.0" left="20.0" right="20.0" top="4.0" />
+                                 </padding>
+                              </Hyperlink>
+                              <Label text="--" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <Label text="mm/dd/yy" textFill="WHITE">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets left="20.0" right="20.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </FlowPane>
+                     </children>
+                  </Pane>
+                  <ImageView fitHeight="700.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../defaultPhoto.jpg" />
                      </image>
                   </ImageView>
-                  <FlowPane alignment="CENTER_LEFT" layoutY="740.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #2b87ff;">
+                  <FlowPane alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #2b87ff;">
                      <children>
-                        <Hyperlink onAction="#likesLinkClicked" text="0 Likes" textFill="WHITE">
+                        <Hyperlink text="0 Likes" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Bold" size="24.0" />
                            </font>
@@ -33,7 +86,7 @@
                               <Font name="Segoe UI Bold" size="24.0" />
                            </font>
                         </Label>
-                        <Hyperlink onAction="#commentsLinkClicked" text="0 Comments" textFill="WHITE">
+                        <Hyperlink text="0 Comments" textFill="WHITE">
                            <font>
                               <Font name="Segoe UI Bold" size="24.0" />
                            </font>
@@ -43,64 +96,20 @@
                         </Hyperlink>
                      </children>
                   </FlowPane>
-                  <Pane layoutY="780.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="700.0">
+                  <Pane prefHeight="240.0" prefWidth="700.0">
                      <children>
-                        <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="220.0" prefWidth="680.0" text="Caption" wrapText="true">
+                        <Label prefHeight="240.0" prefWidth="700.0" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. Vulputate sapien nec sagittis aliquam malesuada. Justo eget magna fermentum iaculis eu non diam. Consequat interdum varius sit amet mattis vulputate enim. Quis auctor elit sed vulputate mi sit amet mauris. Dignissim suspendisse in est ante in nibh mauris. Ut morbi tincidunt augue interdum velit. Neque aliquam vestibulum morbi blandit cursus risus. Ultricies lacus sed turpis tincidunt. Tempor commodo ullamcorper a lacus vestibulum sed arcu. Laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean. Egestas quis ipsum suspendisse ultrices gravida dictum fusce. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus a. Eu tincidunt tortor aliquam nulla. Adipiscing tristique risus nec feugiat. Aenean pharetra magna ac placerat vestibulum lectus mauris.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Enim nec dui nunc mattis enim ut tellus. Egestas egestas fringilla phasellus faucibus scelerisque eleifend donec pretium. Vulputate sapien nec sagittis aliquam malesuada. Justo eget magna fermentum iaculis eu non diam. Consequat interdum varius sit amet mattis vulputate enim. Quis auctor elit sed vulputate mi sit amet mauris. Dignissim suspendisse in est ante in nibh mauris. Ut morbi tincidunt augue interdum velit. Neque aliquam vestibulum morbi blandit cursus risus. Ultricies lacus sed turpis tincidunt. Tempor commodo ullamcorper a lacus vestibulum sed arcu. Laoreet non curabitur gravida arcu ac tortor dignissim convallis aenean. Egestas quis ipsum suspendisse ultrices gravida dictum fusce. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus a. Eu tincidunt tortor aliquam nulla. Adipiscing tristique risus nec feugiat. Aenean pharetra magna ac placerat vestibulum lectus mauris." textFill="#363636" wrapText="true">
+                           <padding>
+                              <Insets bottom="20.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
                            <font>
-                              <Font name="Segoe UI Bold" size="20.0" />
+                              <Font name="Segoe UI Bold" size="18.0" />
                            </font>
                         </Label>
                      </children>
                   </Pane>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2b87ff" height="20.0" layoutY="20.0" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="700.0" />
-                  <FlowPane alignment="CENTER_LEFT" columnHalignment="RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="700.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 20;">
-                     <children>
-                        <Hyperlink onAction="#usernameLinkClicked" text="Username" textFill="WHITE">
-                           <font>
-                              <Font name="Segoe UI Bold" size="24.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="4.0" left="20.0" right="20.0" top="4.0" />
-                           </padding>
-                        </Hyperlink>
-                        <Label text="--" textFill="WHITE">
-                           <font>
-                              <Font name="Segoe UI Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label text="mm/dd/yy" textFill="WHITE">
-                           <padding>
-                              <Insets left="20.0" right="20.0" />
-                           </padding>
-                           <font>
-                              <Font name="Segoe UI Bold" size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </FlowPane>
-               </children></Pane>
-            <Pane layoutY="-120.0" prefHeight="120.0" prefWidth="720.0">
-               <children>
-                  <Pane layoutX="160.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 50;">
-                     <children>
-                        <Text fill="WHITE" layoutX="131.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PicMe">
-                           <font>
-                              <Font name="Segoe UI Bold" size="48.0" />
-                           </font>
-                        </Text>
-                     </children></Pane>
-                  <Button layoutX="14.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#searchButtonPressed" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #cccccc; -fx-background-radius: 40;" text="Search" textFill="WHITE">
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="626.0" layoutY="25.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#settingsButtonPressed" prefHeight="80.0" prefWidth="80.0" style="-fx-background-color: #cccccc; -fx-background-radius: 40;" text="Settings" textFill="WHITE">
-                     <font>
-                        <Font name="Segoe UI Bold" size="12.0" />
-                     </font>
-                  </Button>
                </children>
-            </Pane>
+            </FlowPane>
          </children>
       </Pane>
       <Pane layoutY="1160.0" prefHeight="120.0" prefWidth="720.0">
