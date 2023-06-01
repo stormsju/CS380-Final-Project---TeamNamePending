@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="424.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.admingui.AdminMainUIController">
+<AnchorPane prefHeight="424.0" prefWidth="862.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.admingui.AdminMainUIController">
    <children>
       <TextField fx:id="tfPMUserID" layoutX="115.0" layoutY="100.0" prefHeight="25.0" prefWidth="172.0" />
       <MenuBar prefHeight="25.0" prefWidth="862.0">

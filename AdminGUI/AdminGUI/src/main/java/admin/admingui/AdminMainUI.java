@@ -1,4 +1,4 @@
-package admin.admingui;
+package com.admin.admingui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

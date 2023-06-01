@@ -1,4 +1,4 @@
-package admin.admingui;
+package com.admin.admingui;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;

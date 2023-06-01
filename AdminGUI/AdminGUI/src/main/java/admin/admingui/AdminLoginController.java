@@ -1,12 +1,9 @@
-package admin.admingui;
+package com.admin.admingui;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.Optional;
 /**
@@ -55,9 +52,9 @@ public class AdminLoginController {
     @FXML
     void login(ActionEvent event) {
         // *** Query the user based on user ID and store password in checkPassword ***
-        String checkPassword = DBQuery.getPassword(tfUserName.getText());
+        /*String checkPassword = DBQuery.getPassword(tfUserName.getText());*/
 
-        if(tfPassword.getText().equals(checkPassword)) {
+        if(tfPassword.getText().equals(""/*checkPassword*/)) {
             admin = new AdminUser(tfUserName.getText(), tfPassword.getText());
             Platform.exit();
             AdminMainUI.launchUI();

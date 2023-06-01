@@ -1,4 +1,4 @@
-package admin.admingui;
+package com.admin.admingui;
 
 import admin.entity.Person;
 import javafx.application.Platform;
@@ -57,11 +57,12 @@ public class CreateNewAdminController {
      */
     @FXML
     void submitCredentials(MouseEvent event) {
+        /*
         List<Person> allUsers = new ArrayList<Person>();
         String userName = userNameField.getText(), pWord = passwordField.getText(),
                 confPWord = confirmPasswordField.getText();
         //pseudocode to show what is needed
-        for(Entry e : PicMeDatabase){
+        for(Entry e : AdminDatabase){
             Person person = new Person(e);
             allUsers.add(person);
         }
@@ -153,6 +154,8 @@ public class CreateNewAdminController {
         }
         Platform.exit();
         AdminLogin.launch();
+
+         */
     }
 
 }

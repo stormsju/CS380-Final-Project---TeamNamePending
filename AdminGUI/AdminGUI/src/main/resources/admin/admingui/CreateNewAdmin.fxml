@@ -9,7 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="319.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="admin.admingui.CreateNewAdminController">
+<AnchorPane prefHeight="319.0" prefWidth="380.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.admin.admingui.CreateNewAdminController">
    <children>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="380.0">
          <menus>
