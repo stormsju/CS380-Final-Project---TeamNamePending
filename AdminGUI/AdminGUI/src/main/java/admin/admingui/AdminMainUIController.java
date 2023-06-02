@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import static admin.admingui.Activity.*;
  */
 public class AdminMainUIController {
     //current user/log (outputs to logs folder on close/during actions)
-    private static AdminUser admin = AdminLoginController.admin;
+    private static AdminUser admin;
     private static Person person;
     private static List<Friend> fList = new ArrayList<Friend>();
     private static List<Log> logList = new ArrayList<Log>();

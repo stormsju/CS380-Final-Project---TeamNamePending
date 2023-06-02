@@ -15,4 +15,5 @@ module admin.admingui {
     opens admin.entity to javafx.fxml;
     exports admin.http;
     opens admin.http to javafx.fxml;
+    opens com.admin.admingui to javafx.fxml;
 }
