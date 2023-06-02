@@ -1,7 +1,7 @@
-package http;
+package httpTests;
 
 import com.google.gson.Gson;
-import entity.Post;
+import entityTests.Post;
 
 import java.net.URI;
 import java.net.http.HttpClient;
