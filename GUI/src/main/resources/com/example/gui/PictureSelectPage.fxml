@@ -42,35 +42,35 @@
                     </rowConstraints>
                      <children>
                         <ImageView fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fx:id="imgSelect1" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="imgSelect1" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic1Clicked" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../defaultPhoto.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="imgSelect2" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                        <ImageView fx:id="imgSelect2" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                            <image>
                               <Image url="@../../../defaultPhoto.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="imgSelect3" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                        <ImageView fx:id="imgSelect3" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                            <image>
                               <Image url="@../../../defaultPhoto.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="imgSelect4" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                        <ImageView fx:id="imgSelect4" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../../../defaultPhoto.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="imgSelect5" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <ImageView fx:id="imgSelect5" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic5Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../../../defaultPhoto.jpg" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="imgSelect6" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <ImageView fx:id="imgSelect7" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-                        <ImageView fx:id="imgSelect8" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ImageView fx:id="imgSelect9" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <ImageView fx:id="imgSelect6" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic6Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <ImageView fx:id="imgSelect7" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic7Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                        <ImageView fx:id="imgSelect8" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic8Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ImageView fx:id="imgSelect9" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic9Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>
