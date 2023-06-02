@@ -1,4 +1,4 @@
-package entityTests;
+package entity;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
@@ -26,6 +26,7 @@ public class Person {
     private String email;
     @SerializedName("date")
     private String date;
+    private String status;
 
     public int getId() {
         return id;
@@ -81,5 +82,15 @@ public class Person {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getStatus(){ return status; }
+    public void setStatus(String status){ this.status = status; }
+
+    public String toString(){
+        return "Username: " + username +
+                "\nName: " + fname + " " + lname +
+                "\nEmail: " + email +
+                "\nBirth Date: " + date;
     }
 }

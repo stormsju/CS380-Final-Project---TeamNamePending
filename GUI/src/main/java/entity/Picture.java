@@ -1,4 +1,4 @@
-package entityTests;
+package entity;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
@@ -20,6 +20,7 @@ public class Picture {
     private String file;
     @SerializedName("personID")
     private int personID;
+    private String status;
 
     public int getPictureID() {
         return pictureID;
@@ -52,4 +53,7 @@ public class Picture {
     public void setPersonID(int personID) {
         this.personID = personID;
     }
+
+    public String getStatus(){ return status; }
+    public void setStatus(String status){ this.status = status; }
 }
