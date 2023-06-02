@@ -3,7 +3,6 @@ package com.example.gui;
 public enum Views {
     HOME("HomePage.fxml"),
     PICTURESELECT("PictureSelectPage.fxml"),
-    PREPOST("PrePostPage.fxml"),
     PROFILE("ProfilePage.fxml");
 
     private String fileName;
