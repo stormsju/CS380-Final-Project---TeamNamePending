@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class PictureSelectController {
 
@@ -45,16 +46,129 @@ public class PictureSelectController {
 
     @FXML
     void homeNavButtonPressed(ActionEvent event) {
-        ViewManager.switchTo(Views.HOME);
+
+        HomeController hc = new HomeController();
+        hc.homeNavButtonPressed();
     }
 
     @FXML
-    void photoNavButtonPressed(ActionEvent event) {
+    public void photoNavButtonPressed() {
+
+        // INSERT CODE HERE:
+        // Fill the 3 x 3 grid with images from posts from the database.
+        // There are 9 available spots.
+        // To change the first spot, imgSelect1.setImage(imageFile:string)
+        // To change second spot, imgSelect2.setImage(imageFile:string)
+        // and so on until ninth spot, imgSelect9.setImage(imageFile:string)
+
         ViewManager.switchTo(Views.PICTURESELECT);
     }
 
     @FXML
     void profileNavButtonPressed(ActionEvent event) {
-        ViewManager.switchTo(Views.PROFILE);
+
+        ProfileController pc = new ProfileController();
+        pc.profileNavButtonPressed();
+    }
+
+    @FXML
+    void pic1Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        HomeController hc = new HomeController();
+
+        if(imgSelect1.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
+    }
+
+    @FXML
+    void pic2Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        if(imgSelect2.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
+    }
+
+    @FXML
+    void pic3Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        if(imgSelect3.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
+    }
+
+    @FXML
+    void pic4Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        if(imgSelect4.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
+    }
+
+    @FXML
+    void pic5Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        if(imgSelect5.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
+    }
+
+    @FXML
+    void pic6Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        if(imgSelect6.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
+    }
+
+    @FXML
+    void pic7Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        if(imgSelect7.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
+    }
+
+    @FXML
+    void pic8Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        if(imgSelect8.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
+    }
+
+    @FXML
+    void pic9Clicked(MouseEvent event) {
+
+        // INSERT CODE HERE:
+        // Set the clicked post as the post shown in the Home page.
+
+        if(imgSelect9.getImage() != null) {
+            ViewManager.switchTo(Views.HOME);
+        }
     }
 }
