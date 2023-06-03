@@ -80,7 +80,7 @@ public class PersonService {
      * A get method to find all users in the database.
      * @return A list of every user in the database.
      */
-    public List<Person> getPeople(){
+    public List<Person> findAll(){
         return personRepository.findAll();
     }
 

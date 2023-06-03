@@ -52,19 +52,19 @@ public class HttpController {
      * @return String of filepath to picture location.
      */
     public static String pictureController(int id){
-        Picture p = null;
+        Picture picture = null;
         Blob b = null;
         String picPath = "";
-
+        PictureHttp pictureHttp = new PictureHttp();
         try {
-            p = (Picture) PictureHttp.getById(id);
+            picture = pictureHttp.getById(id);
 
             try {
                 //currently only supports .png
                 picPath = pictureFilePath + id + picExtension;
 
                 //write image to file as byte data
-                b = p.getPictureData();
+                //b = picture.getImage();
                 byte[] byteArr = b.getBytes(1, (int) b.length());
 
                 //output
@@ -95,7 +95,7 @@ public class HttpController {
         String post = "";
 
         try{
-            p = (Post) PostHttp.getPostWithId(id);
+            //p = (Post) PostHttp.getById(id);
             post = p.getText();
         } catch (Exception e) {
             System.out.println(e.getMessage());

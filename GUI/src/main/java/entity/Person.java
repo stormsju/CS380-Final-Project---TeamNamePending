@@ -9,18 +9,23 @@ import lombok.*;
 @Builder
 
 public class Person {
+
+
     @SerializedName("id")
     private int id;
-    @SerializedName("username")
-    private String username;
-    @SerializedName("password")
-    private String password;
+
     @SerializedName("fname")
     private String fname;
     @SerializedName("lname")
     private String lname;
+
+    @SerializedName("username")
+    private String username;
     @SerializedName("email")
     private String email;
+    @SerializedName("password")
+    private String password;
+
     @SerializedName("date")
     private String date;
 

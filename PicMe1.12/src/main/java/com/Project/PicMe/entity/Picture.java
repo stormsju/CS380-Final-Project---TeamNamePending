@@ -50,7 +50,7 @@ public class Picture {
      */
     @Column(name = "picture_file",
         nullable = false)
-    private String pictureFile;
+    private String file;
 
     /**
      * The foreign key column between Picture and Person.

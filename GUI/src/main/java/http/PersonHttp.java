@@ -6,7 +6,6 @@ import entity.Person;
 
 import java.lang.reflect.Type;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public class PersonHttp {
 
-    private final String apiUrl = "http://localhost:1911/api/v1/person";
+    private final String personUrl = "http://localhost:1911/api/v1/person";
 
     /**
      * Method to retrieve person object from database by id.
@@ -34,7 +33,7 @@ public class PersonHttp {
 
         //create http get request to api
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(new URI(this.apiUrl+'/'+id))
+                .uri(new URI(this.personUrl +'/'+id))
                 .GET()
                 .build();
 
@@ -57,7 +56,7 @@ public class PersonHttp {
 
         //create http get request to api
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(new URI(this.apiUrl+"/all"))
+                .uri(new URI(this.personUrl +"/all"))
                 .GET()
                 .build();
 
@@ -76,16 +75,21 @@ public class PersonHttp {
      * @throws Exception Throws an exception for the URI syntax.
      */
     public void save(Person person)throws Exception{
+
+        //new gson object
         Gson gson = new Gson();
+
+        //create JSON string from person object
         String jsonRequest = gson.toJson(person);
 
-        System.out.println(jsonRequest);
+        //making POST request
         HttpRequest postRequest = HttpRequest.newBuilder()
-                .uri(new URI(this.apiUrl+"/add"))
+                .uri(new URI(this.personUrl +"/add"))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonRequest))
                 .header("Content-Type", "application/json")
                 .build();
 
+        //Http client and sending request
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> response = httpClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
     }

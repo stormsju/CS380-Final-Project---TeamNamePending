@@ -24,9 +24,9 @@ public class PersonController {
         return personService.insertPeople(people);
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     public List<Person> findAllPeople(){
-        return personService.getPeople();
+        return personService.findAll();
     }
 
     @GetMapping("/{id}")
