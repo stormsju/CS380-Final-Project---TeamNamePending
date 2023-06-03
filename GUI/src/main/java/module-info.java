@@ -10,5 +10,7 @@ module com.example.gui {
     requires java.net.http;
 
     opens com.example.gui to javafx.fxml;
+    opens entity to com.google.gson;
     exports com.example.gui;
+    exports entity;
 }
