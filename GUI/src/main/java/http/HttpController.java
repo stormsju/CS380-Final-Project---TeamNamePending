@@ -32,9 +32,9 @@ public class HttpController {
     public static String personController(int id){
         Person p = null;
         String str = "";
-
+        PersonHttp personHttp = new PersonHttp();
         try{
-            p = (Person) PersonHttp.getPersonWithId(id);
+            p = personHttp.getById(id);
 
             str = p.toString();
 
