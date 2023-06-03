@@ -49,9 +49,7 @@ class PersonHttpTest {
         List<Person> people = personHttp.getAllPeople();
 
         //iterate through list and print off people
-        people.forEach(
-                person -> System.out.println(person.toString())
-        );
+        people.forEach(person -> System.out.println(person.toString()));
 
     }
 

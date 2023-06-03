@@ -14,39 +14,25 @@ import java.net.http.HttpResponse;
  * allows a Picture object to be requested from Http front-end.
  */
 public class PictureHttp {
+
+    private final String apiUrl = "http://localhost:1911/api/v1/person";
     /**
      * Class which returns a Gson data request from Http front-end. Pulls the data for a Picture object.
      * @param id int Picture ID key of Picture table in database.
      * @return Gson of Picture class data.
      * @throws Exception
      */
-    public static Picture getPictureWithId(int id) throws Exception{
-        Picture picture = new Picture();
+    public static Picture getById(int personId) throws Exception{
+
         Gson gson = new Gson();
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(new URI("http://localhost:1911/getPersonById/"+id))
+                .uri(new URI("http://localhost:1911/getPersonById/"+personId))
                 .GET()
                 .build();
 
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> response = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
-
-        //use while loop to handle data response time
-        while(true){
-            response = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
-            picture = gson.fromJson(response.body(), Picture.class);
-
-            if(picture.getStatus().equals("completed")){
-                break;
-            }
-
-            if(picture.getStatus().equals("error")){
-                return null;
-            }
-
-        }
-
-        return picture;
+        return null;
     }
 }

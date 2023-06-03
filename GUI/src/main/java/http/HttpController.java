@@ -57,7 +57,7 @@ public class HttpController {
         String picPath = "";
 
         try {
-            p = (Picture) PictureHttp.getPictureWithId(id);
+            p = (Picture) PictureHttp.getById(id);
 
             try {
                 //currently only supports .png
