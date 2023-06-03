@@ -79,6 +79,22 @@ public class PictureSelectController {
         this.imgSelect9 = imgSelect9;
     }
 
+    void homeNavButtonPressed(){
+        PicMeGUI.pss.setImgSelect1(this.imgSelect1);
+        PicMeGUI.pss.setImgSelect2(this.imgSelect2);
+        PicMeGUI.pss.setImgSelect3(this.imgSelect3);
+        PicMeGUI.pss.setImgSelect4(this.imgSelect4);
+        PicMeGUI.pss.setImgSelect5(this.imgSelect5);
+        PicMeGUI.pss.setImgSelect6(this.imgSelect6);
+        PicMeGUI.pss.setImgSelect7(this.imgSelect7);
+        PicMeGUI.pss.setImgSelect8(this.imgSelect8);
+        PicMeGUI.pss.setImgSelect9(this.imgSelect9);
+        HomeController hc = new HomeController();
+        hc.setImgFeed(PicMeGUI.hs.getImgFeed());
+        hc.setTfCaption(PicMeGUI.hs.getTfCaption());
+        hc.homeNavButtonPressed();
+    }
+
     @FXML
     void homeNavButtonPressed(ActionEvent event) {
         PicMeGUI.pss.setImgSelect1(this.imgSelect1);
@@ -151,7 +167,7 @@ public class PictureSelectController {
         HomeController hc = new HomeController();
 
         if(imgSelect1.getImage() != null) {
-            ViewManager.switchTo(Views.HOME);
+            homeNavButtonPressed();
         }
     }
 
