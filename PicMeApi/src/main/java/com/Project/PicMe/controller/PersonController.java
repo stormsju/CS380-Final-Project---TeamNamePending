@@ -24,7 +24,7 @@ public class PersonController {
         return personService.insertPeople(people);
     }
 
-    @GetMapping("/all")
+    @GetMapping()
     public List<Person> findAllPeople(){
         return personService.findAll();
     }
@@ -46,8 +46,8 @@ public class PersonController {
 
 
     @DeleteMapping("/delete/{id}")
-    public String  deletePerson(@PathVariable("id") int id){
-        return personService.deletePersonById(id);
+    public void  deletePerson(@PathVariable("id") int id){
+        personService.deletePersonById(id);
     }
 
     @PutMapping("/{id}")

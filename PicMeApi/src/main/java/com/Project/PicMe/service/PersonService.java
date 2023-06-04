@@ -97,16 +97,10 @@ public class PersonService {
     /**
      * A delete method to remove a Person from database with given id.
      * @param id The id of Person that will be removed from the database.
-     * @return A status message of deletion.
      */
-    public String deletePersonById(int id){
+    public void deletePersonById(int id){
 
-        Optional<Person> personOptional = Optional.ofNullable(personRepository.findById(id).orElse(null));
-        if(personOptional.isPresent()){
-            personRepository.deleteById(id);
-            return "Person was successfully removed from database.";
-        }
-        return "No person in the database with id: "+id;
+        personRepository.deleteById(id);
     }
 
 

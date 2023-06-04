@@ -72,7 +72,7 @@ public class Picture {
      * Establishes bidirectional relationship between
      * picture and picture post entity
      */
-    @OneToMany(mappedBy = "picture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "picture", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<PostPicture> postPictures;
 

@@ -106,7 +106,7 @@ public class Person {
      * When a Person object(tuple) is deleted, all Post objects(tuples) which
      * have foreign keys pointing to specific Person obj primary key will be deleted as well.
      */
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Post> posts;
 
@@ -115,7 +115,7 @@ public class Person {
      * When a Person object(tuple) is deleted, all Friend objects(tuples) which
      * have foreign keys pointing to specific Person obj primary key will be deleted as well.
      */
-    @OneToMany(mappedBy = "friendTo", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "friendTo", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Friend> friendTo;
 
@@ -124,7 +124,7 @@ public class Person {
      * When a Person object(tuple) is deleted, all Friend objects(tuples) which
      * have foreign keys pointing to specific Person obj primary key will be deleted as well.
      */
-    @OneToMany(mappedBy = "friendOf", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "friendOf", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Friend> friendOf;
 
@@ -133,7 +133,7 @@ public class Person {
      * When a Person object(tuple) is deleted, all Picture objects(tuples) which
      * have foreign keys pointing to specific Person obj primary key will be deleted as well.
      */
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Picture> pictures;
 
@@ -149,7 +149,7 @@ public class Person {
     /**
      * Establishes bidirectional relation between Admin and Person.
      */
-    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
     @JsonIgnore
     private Admin admin;
 }
