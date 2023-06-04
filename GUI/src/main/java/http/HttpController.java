@@ -20,8 +20,7 @@ public class HttpController {
      * Static class variables
      */
     private static String
-            pictureFilePath = System.getProperty("user.dir") + "src/main/Pictures/",
-            picExtension = ".png";
+            pictureFilePath = System.getProperty("user.dir") + "src/main/Pictures/";
 
     /**
      * Method which submits a query to REST API via PersonHttp class. Builds a Person object, and returns the toString()
@@ -61,7 +60,7 @@ public class HttpController {
 
             try {
                 //currently only supports .png
-                picPath = pictureFilePath + id + picExtension;
+                picPath = pictureFilePath + picture.getFile();
 
                 //write image to file as byte data
                 //b = picture.getImage();
