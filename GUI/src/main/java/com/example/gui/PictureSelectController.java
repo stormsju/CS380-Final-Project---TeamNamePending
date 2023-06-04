@@ -1,183 +1,77 @@
 package com.example.gui;
 
-import javafx.event.ActionEvent;
+import data.DataSingleton;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class PictureSelectController {
-    @FXML
-    private Button btnHome;
+public class PictureSelectController implements Initializable {
 
-    @FXML
-    private Button btnPhotos;
-
-    @FXML
-    private Button btnProfile;
+    DataSingleton data = DataSingleton.getInstance();
 
     @FXML
     private ImageView imgSelect1;
-
     @FXML
     private ImageView imgSelect2;
-
     @FXML
     private ImageView imgSelect3;
-
     @FXML
     private ImageView imgSelect4;
-
     @FXML
     private ImageView imgSelect5;
-
     @FXML
     private ImageView imgSelect6;
-
     @FXML
     private ImageView imgSelect7;
-
     @FXML
     private ImageView imgSelect8;
-
     @FXML
     private ImageView imgSelect9;
 
-    public void setImgSelect1(ImageView imgSelect1) {
-        this.imgSelect1 = imgSelect1;
-    }
-
-    public void setImgSelect2(ImageView imgSelect2) {
-        this.imgSelect2 = imgSelect2;
-    }
-
-    public void setImgSelect3(ImageView imgSelect3) {
-        this.imgSelect3 = imgSelect3;
-    }
-
-    public void setImgSelect4(ImageView imgSelect4) {
-        this.imgSelect4 = imgSelect4;
-    }
-
-    public void setImgSelect5(ImageView imgSelect5) {
-        this.imgSelect5 = imgSelect5;
-    }
-
-    public void setImgSelect6(ImageView imgSelect6) {
-        this.imgSelect6 = imgSelect6;
-    }
-
-    public void setImgSelect7(ImageView imgSelect7) {
-        this.imgSelect7 = imgSelect7;
-    }
-
-    public void setImgSelect8(ImageView imgSelect8) {
-        this.imgSelect8 = imgSelect8;
-    }
-
-    public void setImgSelect9(ImageView imgSelect9) {
-        this.imgSelect9 = imgSelect9;
-    }
-
-    void homeNavButtonPressed(){
-        PicMeGUI.pss.setImgSelect1(this.imgSelect1);
-        PicMeGUI.pss.setImgSelect2(this.imgSelect2);
-        PicMeGUI.pss.setImgSelect3(this.imgSelect3);
-        PicMeGUI.pss.setImgSelect4(this.imgSelect4);
-        PicMeGUI.pss.setImgSelect5(this.imgSelect5);
-        PicMeGUI.pss.setImgSelect6(this.imgSelect6);
-        PicMeGUI.pss.setImgSelect7(this.imgSelect7);
-        PicMeGUI.pss.setImgSelect8(this.imgSelect8);
-        PicMeGUI.pss.setImgSelect9(this.imgSelect9);
-        HomeController hc = new HomeController();
-        hc.setImgFeed(PicMeGUI.hs.getImgFeed());
-        hc.setTfCaption(PicMeGUI.hs.getTfCaption());
-        hc.homeNavButtonPressed();
+    @FXML
+    void homeNavButtonPressed() {
+        ViewManager.switchTo(Views.HOME);
     }
 
     @FXML
-    void homeNavButtonPressed(ActionEvent event) {
-        PicMeGUI.pss.setImgSelect1(this.imgSelect1);
-        PicMeGUI.pss.setImgSelect2(this.imgSelect2);
-        PicMeGUI.pss.setImgSelect3(this.imgSelect3);
-        PicMeGUI.pss.setImgSelect4(this.imgSelect4);
-        PicMeGUI.pss.setImgSelect5(this.imgSelect5);
-        PicMeGUI.pss.setImgSelect6(this.imgSelect6);
-        PicMeGUI.pss.setImgSelect7(this.imgSelect7);
-        PicMeGUI.pss.setImgSelect8(this.imgSelect8);
-        PicMeGUI.pss.setImgSelect9(this.imgSelect9);
-        HomeController hc = new HomeController();
-        hc.setImgFeed(PicMeGUI.hs.getImgFeed());
-        hc.setTfCaption(PicMeGUI.hs.getTfCaption());
-        hc.homeNavButtonPressed();
-
+    void profileNavButtonPressed() {
+        ViewManager.switchTo(Views.PROFILE);
     }
 
     @FXML
-    public void photoNavButtonPressed() {
-        PicMeGUI.pss.setImgSelect1(this.imgSelect1);
-        PicMeGUI.pss.setImgSelect2(this.imgSelect2);
-        PicMeGUI.pss.setImgSelect3(this.imgSelect3);
-        PicMeGUI.pss.setImgSelect4(this.imgSelect4);
-        PicMeGUI.pss.setImgSelect5(this.imgSelect5);
-        PicMeGUI.pss.setImgSelect6(this.imgSelect6);
-        PicMeGUI.pss.setImgSelect7(this.imgSelect7);
-        PicMeGUI.pss.setImgSelect8(this.imgSelect8);
-        PicMeGUI.pss.setImgSelect9(this.imgSelect9);
-        // INSERT CODE HERE:
-        // Fill the 3 x 3 grid with images from posts from the database.
-        // There are 9 available spots.
-        // To change the first spot, imgSelect1.setImage(imageFile:string)
-        // To change second spot, imgSelect2.setImage(imageFile:string)
-        // and so on until ninth spot, imgSelect9.setImage(imageFile:string)
-        ViewManager.switchTo(Views.PICTURESELECT);
-        this.imgSelect1 = PicMeGUI.pss.getImgSelect1();
-        this.imgSelect2 = PicMeGUI.pss.getImgSelect2();
-        this.imgSelect3 = PicMeGUI.pss.getImgSelect3();
-        this.imgSelect4 = PicMeGUI.pss.getImgSelect4();
-        this.imgSelect5 = PicMeGUI.pss.getImgSelect5();
-        this.imgSelect6 = PicMeGUI.pss.getImgSelect6();
-        this.imgSelect7 = PicMeGUI.pss.getImgSelect7();
-        this.imgSelect8 = PicMeGUI.pss.getImgSelect8();
-        this.imgSelect9 = PicMeGUI.pss.getImgSelect9();
+    void pic1Clicked(MouseEvent event) { // Clicking on this pic sets the data stored in DataSingleton to store the info
+                                         // of all the information that corresponds with that photo, like the actual
+                                         // photo as an Image object, the username of the poster, the date of the post,
+                                         // the caption, and the poster's information.
 
-    }
-
-    @FXML
-    void profileNavButtonPressed(ActionEvent event) {
-        PicMeGUI.pss.setImgSelect1(this.imgSelect1);
-        PicMeGUI.pss.setImgSelect2(this.imgSelect2);
-        PicMeGUI.pss.setImgSelect3(this.imgSelect3);
-        PicMeGUI.pss.setImgSelect4(this.imgSelect4);
-        PicMeGUI.pss.setImgSelect5(this.imgSelect5);
-        PicMeGUI.pss.setImgSelect6(this.imgSelect6);
-        PicMeGUI.pss.setImgSelect7(this.imgSelect7);
-        PicMeGUI.pss.setImgSelect8(this.imgSelect8);
-        PicMeGUI.pss.setImgSelect9(this.imgSelect9);
-        ProfileController pc = new ProfileController();
-        pc.profileNavButtonPressed();
-    }
-
-    @FXML
-    void pic1Clicked(MouseEvent event) {
-
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
-        HomeController hc = new HomeController();
-
+        // This if statement doesn't allow any functionality when clicked if the ImageView is empty.
         if(imgSelect1.getImage() != null) {
-            homeNavButtonPressed();
+
+            // INSERT CODE HERE:
+            // Repeat for all click events for the pictures:
+            // Place the corresponding information of this photo clicked, as data in the singleton.
+            // Example:
+            // data.setImg(insert Image object)
+            // data.setCaption(insert String)
+            // data.setUserInfo(insert String)
+            // data.setDate(insert String)
+            // data.setUsername(insert String)
+
+            data.setImg(imgSelect1.getImage()); // Delete this once the above code is implemented. This was temporary
+                                                // to see the code working but will need to be removed.
+
+            ViewManager.switchTo(Views.HOME);
         }
     }
 
     @FXML
     void pic2Clicked(MouseEvent event) {
 
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
         if(imgSelect2.getImage() != null) {
+            data.setImg(imgSelect2.getImage());
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -185,10 +79,8 @@ public class PictureSelectController {
     @FXML
     void pic3Clicked(MouseEvent event) {
 
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
         if(imgSelect3.getImage() != null) {
+            data.setImg(imgSelect3.getImage());
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -196,10 +88,8 @@ public class PictureSelectController {
     @FXML
     void pic4Clicked(MouseEvent event) {
 
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
         if(imgSelect4.getImage() != null) {
+            data.setImg(imgSelect4.getImage());
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -207,10 +97,8 @@ public class PictureSelectController {
     @FXML
     void pic5Clicked(MouseEvent event) {
 
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
         if(imgSelect5.getImage() != null) {
+            data.setImg(imgSelect5.getImage());
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -218,10 +106,8 @@ public class PictureSelectController {
     @FXML
     void pic6Clicked(MouseEvent event) {
 
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
         if(imgSelect6.getImage() != null) {
+            data.setImg(imgSelect6.getImage());
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -229,10 +115,8 @@ public class PictureSelectController {
     @FXML
     void pic7Clicked(MouseEvent event) {
 
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
         if(imgSelect7.getImage() != null) {
+            data.setImg(imgSelect7.getImage());
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -240,10 +124,8 @@ public class PictureSelectController {
     @FXML
     void pic8Clicked(MouseEvent event) {
 
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
         if(imgSelect8.getImage() != null) {
+            data.setImg(imgSelect8.getImage());
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -251,11 +133,17 @@ public class PictureSelectController {
     @FXML
     void pic9Clicked(MouseEvent event) {
 
-        // INSERT CODE HERE:
-        // Set the clicked post as the post shown in the Home page.
-
         if(imgSelect9.getImage() != null) {
+            data.setImg(imgSelect9.getImage());
             ViewManager.switchTo(Views.HOME);
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) { // initialize is called every time this scene is loaded
+
+        // INSERT CODE HERE:
+        // Manually insert the pictures from the database into the ImageView objects
+
     }
 }

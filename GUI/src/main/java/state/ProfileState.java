@@ -4,6 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 public class ProfileState {
+
     private ImageView imgFeed;
 
     private Label tfProfile;

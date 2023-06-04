@@ -49,7 +49,7 @@
                         </ImageView>
                         <ImageView fx:id="imgSelect2" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic2Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                            <image>
-                              <Image url="@../../../defaultPhoto.jpg" />
+                              <Image url="@../../../alternatePhoto.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="imgSelect3" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic3Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
@@ -59,7 +59,7 @@
                         </ImageView>
                         <ImageView fx:id="imgSelect4" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic4Clicked" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                            <image>
-                              <Image url="@../../../defaultPhoto.jpg" />
+                              <Image url="@../../../alternatePhoto.jpg" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="imgSelect5" fitHeight="230.0" fitWidth="230.0" onMouseClicked="#pic5Clicked" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -79,7 +79,7 @@
         </Pane>
         <Pane layoutY="1160.0" prefHeight="120.0" prefWidth="720.0">
             <children>
-                <Button fx:id="btnPhotos" layoutX="250.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#photoNavButtonPressed" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 50;" text="PHOTOS" textFill="WHITE">
+                <Button fx:id="btnPhotos" layoutX="250.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 50;" text="PHOTOS" textFill="WHITE">
                     <font>
                         <Font name="Segoe UI Bold" size="36.0" />
                     </font>

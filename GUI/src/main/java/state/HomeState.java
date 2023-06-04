@@ -2,7 +2,9 @@ package state;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+
 public class HomeState {
+
     private static ImageView imgFeed;
     private static Label tfCaption;
 

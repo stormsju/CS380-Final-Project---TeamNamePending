@@ -50,7 +50,7 @@
                                                 <Font name="Segoe UI Bold" size="24.0" />
                                             </font>
                                         </Label>
-                                        <Label text="mm/dd/yy" textFill="WHITE">
+                                        <Label fx:id="tfDate" text="mm/dd/yy" textFill="WHITE">
                                             <font>
                                                 <Font name="Segoe UI Bold" size="24.0" />
                                             </font>
@@ -120,7 +120,7 @@
                         <Font name="Segoe UI Bold" size="36.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnProfile" layoutX="486.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#profileNavButtonPressed" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 50;" text="PROFILE" textFill="WHITE">
+                <Button fx:id="btnProfile" layoutX="486.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="220.0" style="-fx-background-color: #2b87ff; -fx-background-radius: 50;" text="PROFILE" textFill="WHITE">
                     <font>
                         <Font name="Segoe UI Bold" size="36.0" />
                     </font>
