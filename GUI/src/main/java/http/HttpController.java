@@ -29,20 +29,20 @@ public class HttpController {
      * @param id int Person ID from Person table in database.
      * @return String of Person toString() method, containing user details.
      */
-    public static String personController(int id){
+    public static Person personController(int id){
         Person p = null;
-        String str = "";
+        //String str = "";
         PersonHttp personHttp = new PersonHttp();
         try{
             p = personHttp.getById(id);
 
-            str = p.toString();
+            //str = p.toString();
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        return str;
+        return p;
     }
 
     /**

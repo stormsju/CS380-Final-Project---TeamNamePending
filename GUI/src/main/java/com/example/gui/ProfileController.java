@@ -75,7 +75,7 @@ public class ProfileController implements Initializable {
                 e.printStackTrace();
             }
 
-            /*
+
             try {
                 if (this.checkIfEmpty(tfProfile)) {
                     tfProfile.setText(p.toString()); //pull the date of the post
@@ -84,7 +84,7 @@ public class ProfileController implements Initializable {
                 System.out.println(e.getMessage());
                 e.printStackTrace();
             }
-
+            /*
             //date and picture will not update until selected
             try {
                 if (this.checkIfEmpty(tfDate)) {

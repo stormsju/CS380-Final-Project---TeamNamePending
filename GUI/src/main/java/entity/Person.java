@@ -29,4 +29,10 @@ public class Person {
     @SerializedName("date")
     private String date;
 
+    public String toString(){
+        return "Username:\t" + username +
+                "\nName:\t\t" + fname + " " + lname +
+                "\nEmail\t\t" + email +
+                "\nBirthdate:\t" + date;
+    }
 }
