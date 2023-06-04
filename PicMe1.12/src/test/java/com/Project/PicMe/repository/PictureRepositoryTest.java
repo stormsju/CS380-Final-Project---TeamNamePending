@@ -7,8 +7,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 class PictureRepositoryTest {
 
@@ -23,7 +21,7 @@ class PictureRepositoryTest {
         Picture picture = Picture.builder()
                 .person(personRepository.findById(1000).orElse(null))
                 .image(new byte[]{1,23,34,2,25,4,-12,63,5,67,90,4,3,2,1,14,53})
-                .pictureFile("Desktop/file.png")
+                .file("Desktop/file.png")
                 .build();
         pictureRepository.save(picture);
     }

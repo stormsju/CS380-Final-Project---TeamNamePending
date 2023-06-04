@@ -5,20 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.sql.Blob;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Picture {
-    @SerializedName("picture_id")
+    @SerializedName("id")
     private int pictureID;
-    @SerializedName("picture_data")
-    private Blob pictureData;
+    @SerializedName("image")
+    private String image;
     @SerializedName("file")
     private String file;
-    @SerializedName("personID")
-    private int person;
+    @SerializedName("person")
+    private Person person;
 
 }

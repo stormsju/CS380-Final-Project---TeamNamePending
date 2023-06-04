@@ -255,7 +255,7 @@ public class insertTestData {
     @Test
     public void loadTestPictures(){
         Picture picture = Picture.builder()
-                .pictureFile("simplePicture.jpg")
+                .file("simplePicture.jpg")
                 .image(new byte[]{1,2,3,4,5})
                 .person(personRepository.findById(1002).orElse(null))
                 .build();

@@ -31,7 +31,7 @@ public class PictureService {
 
         //check for null values
         if(picture.getImage() == null ||
-        picture.getPictureFile() == null ||
+        picture.getFile() == null ||
         picture.getPerson() == null) return "A value that should not be empty was left null.";
 
         //check for user in database
@@ -95,7 +95,7 @@ public class PictureService {
             pictureDTOList.add(PictureDTO.builder()
                     .id(picture.getId())
                     .image(picture.getImage())
-                    .pictureFile(picture.getPictureFile())
+                    .file(picture.getFile())
                     //nesting the PersonDTO in
                     .personDTO(PersonDTO.builder()
                             .id(person.getId())

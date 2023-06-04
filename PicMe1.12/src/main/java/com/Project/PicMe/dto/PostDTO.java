@@ -6,17 +6,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PictureDTO {
+public class PostDTO {
+
     @JsonProperty("id")
     private int id;
-    @JsonProperty("image")
-    private byte[] image;
-    @JsonProperty("file")
-    private String file;
+
+    @JsonProperty("date")
+    private LocalDate date;
+
+    @JsonProperty("text")
+    private String text;
+
     @JsonProperty("person")
-    private PersonDTO personDTO;
+    private PersonDTO person;
 }

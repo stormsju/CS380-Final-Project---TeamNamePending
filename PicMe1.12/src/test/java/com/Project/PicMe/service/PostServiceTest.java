@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @SpringBootTest
 class PostServiceTest {
@@ -29,12 +29,12 @@ class PostServiceTest {
                 .person(person)
                 .build();
 
-        postService.savePost(post);
+        postService.save(post);
     }
 
     @Test
     public void getPosts(){
-        List<Post> posts = postService.getPosts();
+        List<Post> posts = postService.findAll();
 
         System.out.println(posts.get(1).getPerson());
 
@@ -43,7 +43,7 @@ class PostServiceTest {
 
     @Test
     public void deletePost(){
-        System.out.println(postService.deletePostById(2));
+        postService.deleteById(1);
 
     }
 
