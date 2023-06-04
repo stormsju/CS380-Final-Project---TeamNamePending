@@ -1,6 +1,8 @@
 package com.example.gui;
 
 import data.DataSingleton;
+import entity.Person;
+import http.HttpController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Hyperlink;
@@ -32,11 +34,68 @@ public class HomeController implements Initializable {
         ViewManager.switchTo(Views.PROFILE);
     }
 
+    private boolean checkIfEmpty(Object o){
+        if(o instanceof ImageView){
+            if (((ImageView) o).getImage() == null){
+                return true;
+            }
+        }
+        if(o instanceof Label){
+            if (((Label) o).getText() == null || ((Label) o).getText().equals("")){
+                return true;
+            }
+        }
+        if(o instanceof Hyperlink){
+            if (((Hyperlink) o).getText() == null || ((Hyperlink) o).getText().equals("")){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         imgFeed.setImage(data.getImg());
         tfCaption.setText(data.getCaption());
         tfUsername.setText(data.getUsername());
         tfDate.setText(data.getDate());
+        //pull person by ID from database only if an empty data member is found
+        Person p = HttpController.personController(1000); //update all IDs with the profile ID for the test
+        if(this.checkIfEmpty(tfUsername) || this.checkIfEmpty(tfDate) || this.checkIfEmpty(tfCaption) ||
+                this.checkIfEmpty(imgFeed)) {
+
+
+            //build all fields that are not already populated from person object
+            try {
+                if (this.checkIfEmpty(tfUsername)) {
+                    tfUsername.setText(p.getUsername());
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+
+            /*
+            //date, post, and picture will not update until selected
+            try {
+                if (this.checkIfEmpty(tfDate)) {
+                    tfDate.setText(); //pull the date of the post
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+
+            try {
+                if (this.checkIfEmpty(tfCaption)) {
+                    tfCaption.setText(); //pull the date of the post
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+            */
+            //we may not handle the main profile photo here, though the IF conditional check exists
+        }
     }
 }

@@ -1,10 +1,13 @@
 package com.example.gui;
 
 import data.DataSingleton;
+import entity.Person;
+import http.HttpController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -139,11 +142,18 @@ public class PictureSelectController implements Initializable {
         }
     }
 
+    private void photoIntake(){
+
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) { // initialize is called every time this scene is loaded
-
         // INSERT CODE HERE:
         // Manually insert the pictures from the database into the ImageView objects
+        Person p = HttpController.personController(1000); //update all IDs with the profile ID for the test
+        /*
+         * use id to pull photos and populate
+         */
 
     }
 }
