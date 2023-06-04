@@ -26,7 +26,7 @@ public class Admin {
     @Column(name = "admin_id")
     private int id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "person_id",
             referencedColumnName = "person_id",

@@ -1,5 +1,6 @@
 package com.Project.PicMe.service;
 
+import com.Project.PicMe.dto.PostDTO;
 import com.Project.PicMe.entity.Person;
 import com.Project.PicMe.entity.Post;
 import com.Project.PicMe.repository.PersonRepository;
@@ -34,7 +35,7 @@ class PostServiceTest {
 
     @Test
     public void getPosts(){
-        List<Post> posts = postService.findAll();
+        List<PostDTO> posts = postService.findAll();
 
         System.out.println(posts.get(1).getPerson());
 
