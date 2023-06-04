@@ -6,6 +6,7 @@ import entity.Picture;
 import http.HttpController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
@@ -16,6 +17,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -161,6 +163,17 @@ public class PictureSelectController implements Initializable {
         // Manually insert the pictures from the database into the ImageView objects
         Person p = HttpController.personController(1000); //update all IDs with the profile ID for the test
         List<Integer> pictureIDs = new ArrayList<>();
+        List<ImageView> images = new ArrayList<>();
+        //add images in order for updating
+        images.add(imgSelect1);
+        images.add(imgSelect2);
+        images.add(imgSelect3);
+        images.add(imgSelect4);
+        images.add(imgSelect5);
+        images.add(imgSelect6);
+        images.add(imgSelect7);
+        images.add(imgSelect8);
+        images.add(imgSelect9);
         /*
          * use id to pull photos and populate
          */
@@ -169,22 +182,21 @@ public class PictureSelectController implements Initializable {
             for(Picture pic : pictures){
                 //create list of picture IDs to get posts
                 pictureIDs.add(pic.getId());
-                //save JSON string to default file
 
+                //String base64 = 'data:image/jpg;base64,'+pic.getImage();
 
                 //save picture to local Pictures folder directory
-
-
-
-                BufferedImage bImage = ImageIO.read(new File(""));
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                byte[] byteArray = pic.getImage().getBytes();
-                ByteArrayInputStream bis = new ByteArrayInputStream(byteArray);
+                //convert from base64 JSON string to usable data type
+                byte[] decode = Base64.getDecoder().decode(pic.getImage());
+                ByteArrayInputStream bis = new ByteArrayInputStream(decode);
                 BufferedImage bImage = ImageIO.read(bis);
                 ImageIO.write(bImage, "jpg", new File(pictureFilePath + pic.getFile()));
-
                 bis.close();
 
+                //update image list with new file directories
+                File file = new File(pictureFilePath + pic.getFile());
+                images.get(0).setImage(new Image(file.toURI().toString()));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

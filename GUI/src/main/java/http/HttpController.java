@@ -47,10 +47,6 @@ public class HttpController {
         List<Picture> picture = null;
         try {
             picture = pictureHttp.getByPerson(id);
-            for(Picture p : picture){
-                System.out.println(p.toString());
-
-            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
