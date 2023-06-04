@@ -1,5 +1,6 @@
 package com.admin.admingui;
 
+import admin.admingui.AdminLogin;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
