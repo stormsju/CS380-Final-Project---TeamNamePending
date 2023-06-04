@@ -8,9 +8,11 @@ module com.example.gui {
     requires com.google.gson;
     requires java.sql;
     requires java.net.http;
+    requires java.desktop;
 
     opens com.example.gui to javafx.fxml;
     opens entity to com.google.gson;
     exports com.example.gui;
     exports entity;
+    exports http;
 }

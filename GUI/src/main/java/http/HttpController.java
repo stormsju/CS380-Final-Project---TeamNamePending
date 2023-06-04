@@ -4,10 +4,7 @@ import entity.Person;
 import entity.Picture;
 import entity.Post;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @Author Justin Storms
@@ -16,12 +13,6 @@ import java.sql.SQLException;
  * Class which controls database requests to be pulled from REST API.
  */
 public class HttpController {
-    /**
-     * Static class variables
-     */
-    private static String
-            pictureFilePath = System.getProperty("user.dir") + "src/main/Pictures/";
-
     /**
      * Method which submits a query to REST API via PersonHttp class. Builds a Person object, and returns the toString()
      * call from the Person class.
@@ -50,38 +41,21 @@ public class HttpController {
      * @param id int of Picture ID key in Picture table of database.
      * @return String of filepath to picture location.
      */
-    public static String pictureController(int id){
-        Picture picture = null;
-        Blob b = null;
+    public static List<Picture> pictureController(int id){
         String picPath = "";
         PictureHttp pictureHttp = new PictureHttp();
+        List<Picture> picture = null;
         try {
-            picture = pictureHttp.getById(id);
+            picture = pictureHttp.getByPerson(id);
+            for(Picture p : picture){
+                System.out.println(p.toString());
 
-            try {
-                //currently only supports .png
-                picPath = pictureFilePath + picture.getFile();
-
-                //write image to file as byte data
-                //b = picture.getImage();
-                byte[] byteArr = b.getBytes(1, (int) b.length());
-
-                //output
-                FileOutputStream fileOut = new FileOutputStream(picPath);
-                fileOut.write(byteArr);
-
-                fileOut.close();
-            } catch(IOException e1){
-                System.out.println(e1.getMessage());
-            } catch(SQLException e){
-                System.out.println(e.getMessage());
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        return picPath;
+        return picture;
     }
 
     /**

@@ -2,7 +2,6 @@ package http;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import entity.Person;
 import entity.Picture;
 
 import java.lang.reflect.Type;
@@ -10,7 +9,6 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +25,7 @@ public class PictureHttp {
      * @return Gson of Picture class data.
      * @throws Exception
      */
-    public Picture getById(int id) throws Exception{
+    public Picture findById(int id) throws Exception{
 
         Gson gson = new Gson();
         HttpRequest getRequest = HttpRequest.newBuilder()

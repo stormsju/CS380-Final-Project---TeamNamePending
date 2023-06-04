@@ -2,17 +2,26 @@ package com.example.gui;
 
 import data.DataSingleton;
 import entity.Person;
+import entity.Picture;
 import http.HttpController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PictureSelectController implements Initializable {
-
+    private static String
+            pictureFilePath = System.getProperty("user.dir") + "\\src\\main\\Pictures\\";
     DataSingleton data = DataSingleton.getInstance();
 
     @FXML
@@ -151,9 +160,35 @@ public class PictureSelectController implements Initializable {
         // INSERT CODE HERE:
         // Manually insert the pictures from the database into the ImageView objects
         Person p = HttpController.personController(1000); //update all IDs with the profile ID for the test
+        List<Integer> pictureIDs = new ArrayList<>();
         /*
          * use id to pull photos and populate
          */
+        try {
+            List<Picture> pictures = HttpController.pictureController(1000);
+            for(Picture pic : pictures){
+                //create list of picture IDs to get posts
+                pictureIDs.add(pic.getId());
+                //save JSON string to default file
 
+
+                //save picture to local Pictures folder directory
+
+
+
+                BufferedImage bImage = ImageIO.read(new File(""));
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                byte[] byteArray = pic.getImage().getBytes();
+                ByteArrayInputStream bis = new ByteArrayInputStream(byteArray);
+                BufferedImage bImage = ImageIO.read(bis);
+                ImageIO.write(bImage, "jpg", new File(pictureFilePath + pic.getFile()));
+
+                bis.close();
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

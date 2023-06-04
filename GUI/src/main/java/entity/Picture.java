@@ -12,12 +12,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Picture {
     @SerializedName("id")
-    private int pictureID;
+    private int id;
     @SerializedName("image")
     private String image;
     @SerializedName("file")
     private String file;
-    @SerializedName("person")
+    @SerializedName("person_id")
     private Person person;
 
+    public String toString(){
+        return "id:\t" + id +
+                "\ndata\t" + image +
+                "\nfile\t" + file;
+    }
 }
