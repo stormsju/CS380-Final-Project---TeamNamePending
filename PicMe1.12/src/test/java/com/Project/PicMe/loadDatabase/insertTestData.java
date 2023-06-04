@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -255,12 +258,24 @@ public class insertTestData {
     @Test
     public void loadTestPictures(){
         Picture picture = Picture.builder()
-                .file("simplePicture.jpg")
-                .image(new byte[]{1,2,3,4,5})
+                .file("zeus.jpg")
+                .image(pathToByteArray("/Users/wyatt/Desktop/zeus.jpg"))
                 .person(personRepository.findById(1002).orElse(null))
                 .build();
 
         pictureRepository.save(picture);
+    }
+
+
+    public static byte[] pathToByteArray(String pathToFile){
+        byte[] imageBytes = null;
+        try {
+            imageBytes = Files.readAllBytes(Path.of(pathToFile));
+            System.out.println("Image bytes: " + imageBytes.length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imageBytes;
     }
 
 

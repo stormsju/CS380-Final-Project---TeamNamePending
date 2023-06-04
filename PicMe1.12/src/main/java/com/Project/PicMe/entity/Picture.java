@@ -58,7 +58,7 @@ public class Picture {
      *     A person can have zero to many pictures)
      */
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "person_id",
             referencedColumnName = "person_id",
@@ -72,7 +72,7 @@ public class Picture {
      * Establishes bidirectional relationship between
      * picture and picture post entity
      */
-    @OneToMany(mappedBy = "picture", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "picture", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<PostPicture> postPictures;
 

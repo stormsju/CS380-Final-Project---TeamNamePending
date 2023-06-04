@@ -32,6 +32,6 @@ class AdminRepositoryTest {
 
     @Test
     public void deleteById(){
-        adminRepository.deleteById(4);
+        adminRepository.deleteById(1);
     }
 }
