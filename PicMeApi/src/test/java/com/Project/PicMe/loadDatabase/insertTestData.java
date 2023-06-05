@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -254,20 +255,32 @@ public class insertTestData {
         commentRepository.saveAll(comments);
 
     }
-
     @Test
     public void loadTestPictures(){
-        Picture picture = Picture.builder()
-                .file("zeus.jpg")
-                .image(pathToByteArray("/Users/wyatt/Desktop/zeus.jpg"))
-                .person(personRepository.findById(1002).orElse(null))
-                .build();
 
-        pictureRepository.save(picture);
+        List<Picture> pictures = new ArrayList<>();
+        final String directoryPath = "/Users/wyatt/Desktop/picMe/GUI/src/main/Pictures";
+
+        File directory = new File(directoryPath);
+        File[] files = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg"));
+        if (files != null) {
+            for (File file : files) {
+
+
+                pictures.add(Picture.builder()
+                        .file(file.getName())
+                        .image(jpgToByteArray(file.getAbsolutePath().toString()))
+                        .person(personRepository.findById(1000).orElse(null))
+                        .build()
+                );
+
+            }
+        }
+
+        pictureRepository.saveAll(pictures);
     }
 
-
-    public static byte[] pathToByteArray(String pathToFile){
+    private static byte[] jpgToByteArray(String pathToFile){
         byte[] imageBytes = null;
         try {
             imageBytes = Files.readAllBytes(Path.of(pathToFile));

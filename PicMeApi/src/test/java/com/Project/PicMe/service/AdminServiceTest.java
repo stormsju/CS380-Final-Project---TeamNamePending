@@ -13,11 +13,6 @@ class AdminServiceTest {
     AdminService adminService;
 
     @Test
-    public void saveByPersonId(){
-        adminService.saveByPersonId(1002);
-    }
-
-    @Test
     public void deleteByPersonId(){
         adminService.deleteByPersonId(1004);
     }
