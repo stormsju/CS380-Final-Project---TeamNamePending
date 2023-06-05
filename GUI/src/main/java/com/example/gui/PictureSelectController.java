@@ -179,28 +179,29 @@ public class PictureSelectController implements Initializable {
          */
         try {
             List<Picture> pictures = HttpController.pictureController(1000);
-            for(Picture pic : pictures){
+            for (Picture pic : pictures) {
                 //create list of picture IDs to get posts
                 pictureIDs.add(pic.getId());
 
-                //String base64 = 'data:image/jpg;base64,'+pic.getImage();
-
                 //save picture to local Pictures folder directory
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
                 //convert from base64 JSON string to usable data type
                 byte[] decode = Base64.getDecoder().decode(pic.getImage());
-                ByteArrayInputStream bis = new ByteArrayInputStream(decode);
-                BufferedImage bImage = ImageIO.read(bis);
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(decode);
+                BufferedImage bImage = ImageIO.read(inputStream);
                 ImageIO.write(bImage, "jpg", new File(pictureFilePath + pic.getFile()));
-                bis.close();
+                inputStream.close();
 
                 //update image list with new file directories
                 File file = new File(pictureFilePath + pic.getFile());
                 images.get(0).setImage(new Image(file.toURI().toString()));
+                images.remove(0);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+
     }
 }
