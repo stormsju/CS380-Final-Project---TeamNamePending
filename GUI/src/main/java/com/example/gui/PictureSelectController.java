@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -24,6 +25,8 @@ import java.util.ResourceBundle;
 public class PictureSelectController implements Initializable {
     private static String
             pictureFilePath = System.getProperty("user.dir") + "\\src\\main\\Pictures\\";
+    private static List<String> dates = new ArrayList<>();
+    private static List<String> captions = new ArrayList<>();
     DataSingleton data = DataSingleton.getInstance();
 
     @FXML
@@ -76,7 +79,8 @@ public class PictureSelectController implements Initializable {
 
             data.setImg(imgSelect1.getImage()); // Delete this once the above code is implemented. This was temporary
                                                 // to see the code working but will need to be removed.
-
+            data.setDate(dates.get(0).toString());
+            data.setCaption(captions.get(0));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -86,6 +90,8 @@ public class PictureSelectController implements Initializable {
 
         if(imgSelect2.getImage() != null) {
             data.setImg(imgSelect2.getImage());
+            data.setDate(dates.get(1).toString());
+            data.setCaption(captions.get(1));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -95,6 +101,8 @@ public class PictureSelectController implements Initializable {
 
         if(imgSelect3.getImage() != null) {
             data.setImg(imgSelect3.getImage());
+            data.setDate(dates.get(2).toString());
+            data.setCaption(captions.get(2));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -104,6 +112,8 @@ public class PictureSelectController implements Initializable {
 
         if(imgSelect4.getImage() != null) {
             data.setImg(imgSelect4.getImage());
+            data.setDate(dates.get(3).toString());
+            data.setCaption(captions.get(3));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -113,6 +123,8 @@ public class PictureSelectController implements Initializable {
 
         if(imgSelect5.getImage() != null) {
             data.setImg(imgSelect5.getImage());
+            data.setDate(dates.get(4).toString());
+            data.setCaption(captions.get(4));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -122,6 +134,8 @@ public class PictureSelectController implements Initializable {
 
         if(imgSelect6.getImage() != null) {
             data.setImg(imgSelect6.getImage());
+            data.setDate(dates.get(5).toString());
+            data.setCaption(captions.get(5));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -131,6 +145,8 @@ public class PictureSelectController implements Initializable {
 
         if(imgSelect7.getImage() != null) {
             data.setImg(imgSelect7.getImage());
+            data.setDate(dates.get(6).toString());
+            data.setCaption(captions.get(6));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -140,6 +156,8 @@ public class PictureSelectController implements Initializable {
 
         if(imgSelect8.getImage() != null) {
             data.setImg(imgSelect8.getImage());
+            data.setDate(dates.get(7).toString());
+            data.setCaption(captions.get(7));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -149,6 +167,8 @@ public class PictureSelectController implements Initializable {
 
         if(imgSelect9.getImage() != null) {
             data.setImg(imgSelect9.getImage());
+            data.setDate(dates.get(8).toString());
+            data.setCaption(captions.get(8));
             ViewManager.switchTo(Views.HOME);
         }
     }
@@ -182,12 +202,15 @@ public class PictureSelectController implements Initializable {
             for (Picture pic : pictures) {
                 //create list of picture IDs to get posts
                 pictureIDs.add(pic.getId());
+                dates.add(pic.getDate());
+                captions.add(pic.getText());
 
                 //save picture to local Pictures folder directory
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
                 //convert from base64 JSON string to usable data type
                 byte[] decode = Base64.getDecoder().decode(pic.getImage());
+                //write to destination
                 ByteArrayInputStream inputStream = new ByteArrayInputStream(decode);
                 BufferedImage bImage = ImageIO.read(inputStream);
                 ImageIO.write(bImage, "jpg", new File(pictureFilePath + pic.getFile()));

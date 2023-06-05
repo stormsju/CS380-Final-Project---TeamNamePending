@@ -27,6 +27,8 @@ public class Picture {
     public String toString(){
         return "id:\t" + id +
                 "\ndata\t" + image +
-                "\nfile\t" + file;
+                "\nfile\t" + file +
+                "\ntext\t" + text +
+                "\ndate\t" + date;
     }
 }

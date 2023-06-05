@@ -42,11 +42,11 @@ public class HttpController {
      * @return String of filepath to picture location.
      */
     public static List<Picture> pictureController(int id){
-        String picPath = "";
         PictureHttp pictureHttp = new PictureHttp();
         List<Picture> picture = null;
         try {
             picture = pictureHttp.getByPerson(id);
+            System.out.println(picture.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
