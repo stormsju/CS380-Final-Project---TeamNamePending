@@ -32,7 +32,7 @@ class PostPictureRepositoryTest {
         PostPicture postPicture = PostPicture.builder()
                 .id(id)
                 .post(postRepository.findById(1).orElse(null))
-                .picture(pictureRepository.findById(1).orElse(null))
+                .picture(pictureRepository.findById(2).orElse(null))
                 .build();
 
         postPictureRepository.save(postPicture);
