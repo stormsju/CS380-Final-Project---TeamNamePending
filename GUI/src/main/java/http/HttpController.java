@@ -46,7 +46,6 @@ public class HttpController {
         List<Picture> picture = null;
         try {
             picture = pictureHttp.getByPerson(id);
-            System.out.println(picture.toString());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
