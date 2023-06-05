@@ -13,7 +13,7 @@ module test{
     requires com.example.gui;
 
     opens com.example.gui to javafx.fxml;
-    exports com.example.gui;
-    exports entity;
-    exports http;
+    //exports com.example.gui;
+    //exports entity;
+    //exports http;
 }

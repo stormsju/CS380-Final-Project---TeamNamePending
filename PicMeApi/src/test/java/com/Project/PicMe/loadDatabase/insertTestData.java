@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +28,7 @@ import java.util.List;
 
 @SpringBootTest
 public class insertTestData {
-
+    private static String filepath = System.getProperty("user.dir") + "/src/main/TestPictures/";
     @Autowired
     private PersonRepository personRepository;
 
@@ -257,9 +258,8 @@ public class insertTestData {
     }
     @Test
     public void loadTestPictures(){
-
         List<Picture> pictures = new ArrayList<>();
-        final String directoryPath = "/Users/wyatt/Desktop/picMe/GUI/src/main/Pictures";
+        final String directoryPath = filepath;
 
         File directory = new File(directoryPath);
         File[] files = directory.listFiles((dir, name) -> name.toLowerCase().endsWith(".jpg"));
@@ -269,6 +269,8 @@ public class insertTestData {
 
                 pictures.add(Picture.builder()
                         .file(file.getName())
+                        .date(LocalDate.now())
+                        .text("I met a " + file.getName().substring(0, file.getName().lastIndexOf('.')) + "!")
                         .image(jpgToByteArray(file.getAbsolutePath().toString()))
                         .person(personRepository.findById(1000).orElse(null))
                         .build()
