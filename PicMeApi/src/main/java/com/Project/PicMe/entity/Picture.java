@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -33,6 +34,20 @@ public class Picture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "picture_id")
     private int id;
+
+    /**
+     * post_text is the column in the entity POST which stores
+     * the user input (caption) for the post.
+     */
+    @Column(name = "post_text",
+            length = 500)
+    private String text;
+
+    /**
+     * Date the picture was posted.
+     */
+    @Column(name = "date_posted")
+    private LocalDate date;
 
     /**
      * Column named picture_data in the PICTURE entity in the database

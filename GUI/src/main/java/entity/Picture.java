@@ -17,7 +17,11 @@ public class Picture {
     private String image;
     @SerializedName("file")
     private String file;
-    @SerializedName("person_id")
+    @SerializedName("text")
+    private String text;
+    @SerializedName("date")
+    private String date;
+    @SerializedName("person")
     private Person person;
 
     public String toString(){

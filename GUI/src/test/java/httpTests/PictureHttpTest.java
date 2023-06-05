@@ -9,10 +9,12 @@ import java.util.List;
 class PictureHttpTest {
 
     @Test
-    void getByPerson() throws Exception{
+    void getAll() throws Exception{
         PictureHttp pictureHttp = new PictureHttp();
-        List<Picture> pictures = pictureHttp.getByPerson(1000);
+        List<Picture> pictures = pictureHttp.getAll();
 
-        System.out.println(pictures.toString());
+        for (Picture p:pictures) {
+            System.out.println(p.getPerson().getId());
+        }
     }
 }

@@ -1,4 +1,4 @@
-package entity;
+package entityTests;
 
 import org.junit.jupiter.api.Test;
 

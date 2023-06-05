@@ -86,31 +86,34 @@ public class PictureService {
      * @return List of PictureDTOs from the Pictures
      */
     private List<PictureDTO> pictureAdapter(List<Picture> pictures){
-        List<PictureDTO> pictureDTOList = new ArrayList<>();
+        List<PictureDTO> list = new ArrayList<>();
 
         for (Picture picture: pictures) {
-
-            Person person = picture.getPerson();
-
-            pictureDTOList.add(PictureDTO.builder()
-                    .id(picture.getId())
-                    .image(picture.getImage())
-                    .file(picture.getFile())
-                    //nesting the PersonDTO in
-                    .personDTO(PersonDTO.builder()
-                            .id(person.getId())
-                            .fname(person.getFname())
-                            .lname(person.getLname())
-                            .date(person.getDate())
-                            .username(person.getUsername())
-                            .email(person.getEmail())
-                            .password(person.getPassword())
-                            .build())
-                    .build()
-
-            );
+            list.add(pictureAdapter(picture));
         }
 
-        return pictureDTOList;
+        return list;
+    }
+
+    private PictureDTO pictureAdapter(Picture picture){
+        Person person = picture.getPerson();
+        return  PictureDTO.builder()
+                .id(picture.getId())
+                .image(picture.getImage())
+                .file(picture.getFile())
+                .text(picture.getText())
+                .date(picture.getDate())
+                //nesting the PersonDTO in
+                .personDTO(PersonDTO.builder()
+                        .id(person.getId())
+                        .fname(person.getFname())
+                        .lname(person.getLname())
+                        .date(person.getDate())
+                        .username(person.getUsername())
+                        .email(person.getEmail())
+                        .password(person.getPassword())
+                        .build()
+                )
+                .build();
     }
 }

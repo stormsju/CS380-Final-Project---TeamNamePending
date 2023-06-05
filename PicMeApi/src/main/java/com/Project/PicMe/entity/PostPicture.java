@@ -11,7 +11,7 @@ import lombok.*;
  * PostPicture is an associative table that
  * between post and picture
  */
-@Entity
+@Entity(name = "PostPicture")
 @Table(name = "postpicture")
 @Data
 @ToString

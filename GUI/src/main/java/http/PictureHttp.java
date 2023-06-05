@@ -21,24 +21,30 @@ public class PictureHttp {
     private final String pictureUrl = "http://localhost:1911/api/v1/picture";
     /**
      * Class which returns a Gson data request from Http front-end. Pulls the data for a Picture object.
-     * @param id int Picture ID key of Picture table in database.
      * @return Gson of Picture class data.
-     * @throws Exception
+     * @throws Exception Generic exception handler.
      */
-    public Picture findById(int id) throws Exception{
+    public List<Picture> getAll() throws Exception{
 
         Gson gson = new Gson();
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(new URI(pictureUrl +'/'+ id))
+                .uri(new URI(pictureUrl))
                 .GET()
                 .build();
 
 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> response = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
-        return gson.fromJson(response.body(), Picture.class);
+        Type pictureListClass = new TypeToken<List<Picture>>(){}.getType();
+        return gson.fromJson(response.body(), pictureListClass);
     }
 
+    /**
+     * Method to retrieve a list of pictures associated with person
+     * @param personId The id of person to query for.
+     * @return a list of pictures from database.
+     * @throws Exception Generic exception handling.
+     */
     public List<Picture> getByPerson(int personId) throws Exception{
 
         Gson gson = new Gson();

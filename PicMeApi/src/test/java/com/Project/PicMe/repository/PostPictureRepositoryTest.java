@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -25,8 +27,8 @@ class PostPictureRepositoryTest {
     public void save(){
 
         PostPictureId id = PostPictureId.builder()
-                .pictureId(1)
                 .postId(1)
+                .pictureId(2)
                 .build();
 
         PostPicture postPicture = PostPicture.builder()
@@ -36,5 +38,12 @@ class PostPictureRepositoryTest {
                 .build();
 
         postPictureRepository.save(postPicture);
+    }
+
+    @Test
+    public void findByPictureId(){
+        List<PostPicture> list =  postPictureRepository.findByPictureId(1);
+
+        list.forEach(PostPicture::toString);
     }
 }

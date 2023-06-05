@@ -38,6 +38,9 @@ public class Post {
             nullable = false)
     private int id;
 
+    /**
+     * Date the post was posted.
+     */
     @Column(name = "date_posted",
             nullable = false)
     private LocalDate date;

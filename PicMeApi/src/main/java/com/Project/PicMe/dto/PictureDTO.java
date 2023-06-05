@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -17,6 +19,10 @@ public class PictureDTO {
     private byte[] image;
     @JsonProperty("file")
     private String file;
+    @JsonProperty("text")
+    private String text;
+    @JsonProperty("date")
+    private LocalDate date;
     @JsonProperty("person")
     private PersonDTO personDTO;
 }
