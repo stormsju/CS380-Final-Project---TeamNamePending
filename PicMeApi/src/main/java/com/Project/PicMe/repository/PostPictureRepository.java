@@ -1,14 +1,12 @@
 package com.Project.PicMe.repository;
 
 import com.Project.PicMe.compositeKey.PostPictureId;
-import com.Project.PicMe.entity.Picture;
 import com.Project.PicMe.entity.PostPicture;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface PostPictureRepository extends JpaRepository<PostPicture, PostPictureId> {

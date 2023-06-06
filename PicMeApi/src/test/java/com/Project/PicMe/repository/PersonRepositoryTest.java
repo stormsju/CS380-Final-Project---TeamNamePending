@@ -41,7 +41,7 @@ class PersonRepositoryTest {
                 .email("fake@Icloud.com")
                 .date("11/11/1111")
                 .username("TestDummy")
-                .password("password")
+                .password("$trongPassword34")
                 .build();
 
         System.out.println(personRepository.save(person));

@@ -95,6 +95,11 @@ public class PictureService {
         return list;
     }
 
+    /**
+     * Method to swap a Picture to a pictureDto
+     * @param picture Picture object to adapt.
+     * @return Picture Dto output.
+     */
     private PictureDTO pictureAdapter(Picture picture){
         Person person = picture.getPerson();
         return  PictureDTO.builder()

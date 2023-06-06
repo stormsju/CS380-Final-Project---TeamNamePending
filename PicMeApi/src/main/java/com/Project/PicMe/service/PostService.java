@@ -1,10 +1,8 @@
 package com.Project.PicMe.service;
 
 import com.Project.PicMe.dto.PersonDTO;
-import com.Project.PicMe.dto.PictureDTO;
 import com.Project.PicMe.dto.PostDTO;
 import com.Project.PicMe.entity.Person;
-import com.Project.PicMe.entity.Picture;
 import com.Project.PicMe.entity.Post;
 import com.Project.PicMe.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +62,11 @@ public class PostService {
         return postListAdapter(postRepository.findByPersonId(personId));
     }
 
-    //turns a list of Post into a list of PostDTO
-    //uses another helper function postAdapter and for each loop.
+    /**
+     * Post adapter for list
+     * @param posts list of Posts
+     * @return list of PostDtos
+     */
     private List<PostDTO> postListAdapter(List<Post> posts){
 
         List<PostDTO> outputList = new ArrayList<>();
@@ -80,8 +81,11 @@ public class PostService {
         return outputList;
     }
 
-    //Takes in a single post
-    //Outputs a PostDTO
+    /**
+     * private helper method, Post to PostDto
+     * @param post Post to switch.
+     * @return a PostDto
+     */
     private PostDTO postAdapter(Post post){
 
         if(post == null) return null;

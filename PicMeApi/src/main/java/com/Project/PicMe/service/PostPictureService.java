@@ -13,6 +13,10 @@ public class PostPictureService {
     @Autowired
     PostPictureRepository postPictureRepository;
 
+    /**
+     * Query database for PostPicture objects.
+     * @return returns a list of PostPictures
+     */
     public List<PostPicture> findAll(){
         return postPictureRepository.findAll();
     }

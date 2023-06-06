@@ -21,9 +21,15 @@ import lombok.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PostPicture {
 
+    /**
+     * The pk object for the postPicture entity.
+     */
     @EmbeddedId
     private PostPictureId id;
 
+    /**
+     * Maps the post entity fk for a join column.
+     */
     @ManyToOne
     @MapsId("postId")
     @JoinColumn(name = "post_id",
@@ -33,6 +39,9 @@ public class PostPicture {
     @JsonIgnore
     private Post post;
 
+    /**
+     * Maps the picture entity fk for a join column.
+     */
     @ManyToOne
     @MapsId("pictureId")
     @JoinColumn(name = "picture_id",

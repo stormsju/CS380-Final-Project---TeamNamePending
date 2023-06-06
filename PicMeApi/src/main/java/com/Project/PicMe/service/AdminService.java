@@ -34,6 +34,10 @@ public class AdminService {
     }
 
 
+    /**
+     * Delete an Admin entity by person id.
+     * @param personId id of person to query for.
+     */
     public void deleteByPersonId(int personId){
         //check if admin entity is in database
         Admin admin = adminRepository.findByPersonId(personId).orElse(null);

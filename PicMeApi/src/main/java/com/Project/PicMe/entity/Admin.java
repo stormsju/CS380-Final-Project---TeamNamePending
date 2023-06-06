@@ -21,11 +21,17 @@ import lombok.*;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Admin {
 
+    /**
+     * Pk field for the admin entity
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admin_id")
     private int id;
 
+    /**
+     * Maps the join column of an admin to a Person entity.
+     */
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(
             name = "person_id",
